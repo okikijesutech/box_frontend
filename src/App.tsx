@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { FaApple, FaGooglePlay } from "react-icons/fa6";
+import Navbar from "./components/Navbar";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className='px-[10%]'>
+      <Navbar />
+      <div className='flex flex-col items-center justify-center py-[15%]'>
+        <h1 className='text-[48px] font-semibold'>Welcome to In Box</h1>
+        <p className='text-[18px]'>Your one stop app for all your meals</p>
+        <div className='flex items-center justify-between w-[400px] mt-5'>
+          <button className='flex items-center justify-center border-[1px] px-4 py-2 border-black rounded-[15px]'>
+            <FaApple size={32} />
+            <div className='ml-3'>
+              <p className='text-[12px] text-left'>Get it</p>
+              <p className='text-[24px]'>App Store</p>
+            </div>
+          </button>
+          <button className='flex items-center justify-center border-[1px] px-4 py-2 border-black rounded-[15px]'>
+            <FaGooglePlay size={32} />
+            <div className='ml-3'>
+              <p className='text-[12px] text-left'>Get it</p>
+              <p className='text-[24px]'>Google Play</p>
+            </div>
+          </button>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
