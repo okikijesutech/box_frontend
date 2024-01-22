@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home, Contact, Privacy, Notfound } from "./pages";
 import { Admin, Users, Merchants, Signup, Signin } from "./admin";
+import { Merchant, Product } from "./merchant";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -43,6 +44,15 @@ const router = createBrowserRouter([
   {
     path: "/admin/signup",
     element: <Signup />,
+  },
+  // Merchant routes
+  {
+    path: "/merchant",
+    element: <Merchant />,
+  },
+  {
+    path: "/merchant/product",
+    element: <Product />,
   },
 ]);
 

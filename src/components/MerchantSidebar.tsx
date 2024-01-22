@@ -1,4 +1,4 @@
-import { FaUser, FaUserTie, FaEye } from "react-icons/fa6";
+import { FaUser, FaEye } from "react-icons/fa6";
 
 const Sidebar = () => {
   return (
@@ -7,19 +7,16 @@ const Sidebar = () => {
         <a href='/'>
           <p>IN_BOX</p>
         </a>
+        <p>Merchant Dashboard</p>
       </div>
       <ul className='text-[24px] mt-5'>
         <li className='flex items-center'>
           <FaEye size={24} style={{ marginRight: "15px" }} />
-          <a href='/admin'>Overview</a>
+          <a href='/merchant'>Overview</a>
         </li>
         <li className='flex items-center mt-2'>
           <FaUser size={24} style={{ marginRight: "15px" }} />
-          <a href='/admin/users'>Users</a>
-        </li>
-        <li className='flex items-center mt-2'>
-          <FaUserTie size={24} style={{ marginRight: "15px" }} />
-          <a href='/admin/merchants'>Merchants</a>
+          <a href='/merchant/product'>Products</a>
         </li>
       </ul>
     </div>
