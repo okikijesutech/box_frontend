@@ -1,4 +1,12 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 const Signin = () => {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  useEffect(() => {
+    axios.post("localhost:3000", { email: email, password: password }).then();
+  });
   const handleSingin = () => {};
   return (
     <div className='flex flex-col items-center justify-center py-[12%] overflow-y-hidden bg-green-300'>
@@ -13,11 +21,13 @@ const Signin = () => {
             type='text'
             placeholder='Benny'
             id='email'
+            onChange={() => setEmail}
             className='mt-2 mb-4 border-b-2 border-green-900 bg-inherit focus:outline-none'
           />
           <label htmlFor='password'>Password</label>
           <input
             type='password'
+            onChange={() => setPassword}
             id='password'
             className='mt-2 mb-4 border-b-2 border-green-900 bg-inherit focus:border-b-2 focus:outline-none'
           />
@@ -29,7 +39,7 @@ const Signin = () => {
             <a href='/merchant'>Sign In</a>
           </button>
         </form>
-        <a href='' className='text-green-900 text-sm'>
+        <a href='/forgotten_password' className='text-green-900 text-sm'>
           Forgotten password
         </a>
         <p className='text-sm'>

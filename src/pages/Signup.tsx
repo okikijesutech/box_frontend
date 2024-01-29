@@ -1,4 +1,22 @@
+import axios from "axios";
+import { useState } from "react";
+
 const Signup = () => {
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [shopName, setShopName] = useState();
+  const [password, setPassword] = useState();
+  const handleSignUp = () => {
+    axios
+      .post("localhost:3000", {
+        name: name,
+        email: email,
+        shopName: shopName,
+        password: password,
+      })
+      .then();
+  };
+
   return (
     <div className='flex flex-col items-center justify-center py-[7%] overflow-y-hidden bg-green-300'>
       <h1 className='text-2xl'>IN_BOX</h1>
@@ -10,6 +28,7 @@ const Signup = () => {
             type='text'
             placeholder='Benny'
             id='name'
+            onChange={() => setName}
             className='mt-2 mb-4 border-b-2 border-green-900 bg-inherit focus:outline-none'
           />
           <label htmlFor='email'>Email Address</label>
@@ -17,6 +36,7 @@ const Signup = () => {
             type='email'
             placeholder='Benny'
             id='email'
+            onChange={() => setEmail}
             className='mt-2 mb-4 border-b-2 border-green-900 bg-inherit focus:outline-none'
           />
           <label htmlFor='email'>Shop Name</label>
@@ -24,16 +44,21 @@ const Signup = () => {
             type='text'
             placeholder='Benny'
             id='shopName'
+            onChange={() => setShopName}
             className='mt-2 mb-4 border-b-2 border-green-900 bg-inherit focus:outline-none'
           />
           <label htmlFor='password'>Password</label>
           <input
             type='password'
             id='password'
+            onChange={() => setPassword}
             className='mt-2 mb-4 border-b-2 border-green-900 bg-inherit focus:border-b-2 focus:outline-none'
           />
-          <button className='rounded-[10px] bg-green-900 px-3 py-2 w-3/4 mx-auto mb-[10px]'>
-            Sign In
+          <button
+            className='rounded-[10px] bg-green-900 px-3 py-2 w-3/4 mx-auto mb-[10px]'
+            onClick={handleSignUp}
+          >
+            Sign Up
           </button>
         </form>
         <a href='' className='text-green-900 text-sm'>

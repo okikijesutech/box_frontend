@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import MerchantLayout from "../layouts/MerchantLayout";
+import axios from "axios";
 
 const Merchant = () => {
+  useEffect(() => {
+    axios.get("localhost:3000", {}).then();
+  });
   return (
     <MerchantLayout>
       <h1 className='text-[48px]'>Overview</h1>

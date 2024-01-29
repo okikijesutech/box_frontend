@@ -1,7 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home, Contact, Privacy, Notfound, Signup, Signin } from "./pages";
+import {
+  Home,
+  Contact,
+  Privacy,
+  Notfound,
+  Signup,
+  Signin,
+  ForgotPassword,
+} from "./pages";
 import { Admin, Users, Merchants } from "./admin";
 import { Merchant, Product } from "./merchant";
 import "./index.css";
@@ -22,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <Notfound />,
+  },
+  {
+    path: "/forgotten_password",
+    element: <ForgotPassword />,
   },
 
   // Admin Routes

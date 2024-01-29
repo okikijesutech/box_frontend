@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import AdminLayout from "../layouts/AdminLayout";
+import axios from "axios";
 
 const users = [
   {
@@ -34,6 +36,9 @@ const users = [
 ];
 
 const Users = () => {
+  useEffect(() => {
+    axios.get("localhost:3000", {}).then();
+  });
   return (
     <AdminLayout>
       <h1 className='text-[48px]'>Users</h1>
