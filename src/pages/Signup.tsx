@@ -2,19 +2,23 @@ import axios from "axios";
 import { useState } from "react";
 
 const Signup = () => {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [shopName, setShopName] = useState();
-  const [password, setPassword] = useState();
-  const handleSignUp = () => {
-    axios
-      .post("localhost:3000", {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [shopName, setShopName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignUp = async () => {
+    try {
+      const res = await axios.post("http://localhost:3000/merchant", {
         name: name,
         email: email,
         shopName: shopName,
         password: password,
-      })
-      .then();
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.log();
+    }
   };
 
   return (
@@ -28,7 +32,7 @@ const Signup = () => {
             type='text'
             placeholder='Benny'
             id='name'
-            onChange={() => setName}
+            onChange={(e) => setName(e.target.value)}
             className='mt-2 mb-4 border-b-2 border-green-900 bg-inherit focus:outline-none'
           />
           <label htmlFor='email'>Email Address</label>
@@ -36,7 +40,7 @@ const Signup = () => {
             type='email'
             placeholder='Benny'
             id='email'
-            onChange={() => setEmail}
+            onChange={(e) => setEmail(e.target.value)}
             className='mt-2 mb-4 border-b-2 border-green-900 bg-inherit focus:outline-none'
           />
           <label htmlFor='email'>Shop Name</label>
@@ -44,14 +48,14 @@ const Signup = () => {
             type='text'
             placeholder='Benny'
             id='shopName'
-            onChange={() => setShopName}
+            onChange={(e) => setShopName(e.target.value)}
             className='mt-2 mb-4 border-b-2 border-green-900 bg-inherit focus:outline-none'
           />
           <label htmlFor='password'>Password</label>
           <input
             type='password'
             id='password'
-            onChange={() => setPassword}
+            onChange={(e) => setPassword(e.target.value)}
             className='mt-2 mb-4 border-b-2 border-green-900 bg-inherit focus:border-b-2 focus:outline-none'
           />
           <button
