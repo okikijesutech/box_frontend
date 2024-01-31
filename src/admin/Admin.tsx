@@ -3,7 +3,12 @@ import AdminLayout from "../layouts/AdminLayout";
 import axios from "axios";
 const Admin = () => {
   useEffect(() => {
-    axios.get("localhost:3000", {}).then();
+    try {
+      const merchant = axios.get("http://localhost:3000/merchant", {});
+      console.log(merchant);
+    } catch (error) {
+      console.log(error);
+    }
   });
   return (
     <AdminLayout>

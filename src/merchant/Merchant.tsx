@@ -4,7 +4,11 @@ import axios from "axios";
 
 const Merchant = () => {
   useEffect(() => {
-    axios.get("localhost:3000", {}).then();
+    try {
+      axios.get("http://localhost:3000/user", {}).then();
+    } catch (error) {
+      console.log(error);
+    }
   });
   return (
     <MerchantLayout>

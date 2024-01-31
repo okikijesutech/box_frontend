@@ -10,6 +10,7 @@ const Product = () => {
     <MerchantLayout>
       <div>
         <h1>Products</h1>
+        <button>Create Product</button>
         {}
       </div>
     </MerchantLayout>
