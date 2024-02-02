@@ -9,7 +9,10 @@ const MerchantLayout: React.FC<MerchantLayoutProps> = ({ children }) => {
   return (
     <div className='flex'>
       <MerchantSidebar />
-      <main className='px-6 py-4'>{children}</main>
+      <div>
+        <div className='p-4 bg-slate-500 w-[1350px]'>User Name</div>
+        <main className='px-6 py-4'>{children}</main>
+      </div>
     </div>
   );
 };

@@ -10,8 +10,8 @@ import {
   Signin,
   ForgotPassword,
 } from "./pages";
-import { Admin, Users, Merchants } from "./admin";
-import { Merchant, Product } from "./merchant";
+import { Admin, Users, Merchants, Setting } from "./admin";
+import { AddProduct, Merchant, Product, Settings } from "./merchant";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -57,6 +57,10 @@ const router = createBrowserRouter([
     path: "/admin/signup",
     element: <Signup />,
   },
+  {
+    path: "/admin/setting",
+    element: <Setting />,
+  },
   // Merchant routes
   {
     path: "/merchant",
@@ -67,12 +71,20 @@ const router = createBrowserRouter([
     element: <Product />,
   },
   {
+    path: "/merchant/product/add_product",
+    element: <AddProduct />,
+  },
+  {
     path: "/signin",
     element: <Signin />,
   },
   {
     path: "/signup",
     element: <Signup />,
+  },
+  {
+    path: "/merchant/settings",
+    element: <Settings />,
   },
 ]);
 
