@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import MerchantLayout from "../layouts/MerchantLayout";
-import ProductLayout from "../layouts/ProductLayout";
+import MerchantLayout from "../../layouts/MerchantLayout";
+import ProductLayout from "../../layouts/ProductLayout";
 import { FaSearch } from "react-icons/fa";
 
 const Product = () => {

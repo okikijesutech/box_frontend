@@ -11,7 +11,14 @@ import {
   ForgotPassword,
 } from "./pages";
 import { Admin, Users, Merchants, Setting } from "./admin";
-import { AddProduct, Merchant, Product, Settings } from "./merchant";
+import {
+  AddAdmin,
+  AddProduct,
+  BankAndPayment,
+  Merchant,
+  Product,
+  Settings,
+} from "./merchant";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -85,6 +92,14 @@ const router = createBrowserRouter([
   {
     path: "/merchant/settings",
     element: <Settings />,
+  },
+  {
+    path: "/merchant/settings/add_admin",
+    element: <AddAdmin />,
+  },
+  {
+    path: "/merchant/settings/bankandpayment",
+    element: <BankAndPayment />,
   },
 ]);
 

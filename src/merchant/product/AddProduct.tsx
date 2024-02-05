@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ProductLayout from "../layouts/ProductLayout";
-import MerchantLayout from "../layouts/MerchantLayout";
+import ProductLayout from "../../layouts/ProductLayout";
+import MerchantLayout from "../../layouts/MerchantLayout";
 import axios from "axios";
 
 const AddProduct = () => {
@@ -26,13 +26,13 @@ const AddProduct = () => {
       <ProductLayout>
         <div className='p-4 border-[2px] border-green-500 bg-green-500 rounded shadow-md'>
           <form action='' onSubmit={handleSubmit} className='flex flex-col'>
-            <label htmlFor='name'>Name</label>
+            <label htmlFor='name'>Product name</label>
             <input
               type='text'
               id='name'
               onChange={(e) => setName(e.target.value)}
             />
-            <label htmlFor='quantity'>quantity</label>
+            <label htmlFor='quantity'>Quantity</label>
             <input
               type='text'
               id='quantity'
@@ -50,6 +50,8 @@ const AddProduct = () => {
               id='price'
               onChange={(e) => setPrice(e.target.value)}
             />
+            <label htmlFor='productJpeg'>Image</label>
+            <input type='text' id='productJpeg' />
           </form>
           <button
             type='submit'

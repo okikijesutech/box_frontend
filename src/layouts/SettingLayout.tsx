@@ -10,13 +10,13 @@ const SettingLayout: React.FC<SettingLayout> = ({ children }) => {
       <div>
         <ul className='flex'>
           <li className='mr-5'>
-            <a href=''>Setting</a>
+            <a href='/merchant/settings'>Basic Info</a>
           </li>
           <li className='mr-5'>
-            <a href=''>Add Admin</a>
+            <a href='/merchant/settings/add_admin'>Add Admin</a>
           </li>
           <li className='mr-5'>
-            <a href=''>Payment </a>
+            <a href='/merchant/settings/bankandpayment'>Bank and Payment </a>
           </li>
         </ul>
       </div>

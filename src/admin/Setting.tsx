@@ -4,7 +4,12 @@ const Setting = () => {
   return (
     <AdminLayout>
       <div>
-        <h1>Setting</h1>
+        <div>
+          <form action=''>
+            <label htmlFor='shopName'>Shop Name</label>
+            <input type='text' name='' id='shopName' />
+          </form>
+        </div>
       </div>
     </AdminLayout>
   );
