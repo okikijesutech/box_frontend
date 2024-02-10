@@ -4,8 +4,14 @@ import MerchantLayout from "../../layouts/MerchantLayout";
 import ProductLayout from "../../layouts/ProductLayout";
 import { FaSearch } from "react-icons/fa";
 
+interface ProductType {
+  id: number;
+  name: string;
+  quantity: number;
+}
+
 const Product = () => {
-  const [products, setProducts] = useState("");
+  const [products, setProducts] = useState<ProductType[]>([]);
   const [search, setSearch] = useState("");
   useEffect(() => {
     const fetchProduct = async () => {
@@ -18,6 +24,11 @@ const Product = () => {
     };
     fetchProduct();
   }, []);
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <MerchantLayout>
       <div>
@@ -41,8 +52,9 @@ const Product = () => {
                 </tr>
               </thead>
               <tbody>
-                {Array.isArray(products) && products.length > 0 ? (
-                  products.map((product, index) => (
+                {Array.isArray(filteredProducts) &&
+                filteredProducts.length > 0 ? (
+                  filteredProducts.map((product, index) => (
                     <tr
                       key={product.id}
                       className={index % 2 === 0 ? "bg-gray-50" : ""}

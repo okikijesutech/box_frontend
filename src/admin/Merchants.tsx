@@ -34,6 +34,9 @@ const Merchants = () => {
       console.log(error);
     }
   };
+  const filteredUsers = users.filter((user) =>
+    user.email.toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <AdminLayout>
       <h1 className='text-[48px]'>Merchants</h1>
@@ -57,8 +60,8 @@ const Merchants = () => {
             </tr>
           </thead>
           <tbody>
-            {Array.isArray(users) && users.length > 0 ? (
-              users.map((user, index) => (
+            {Array.isArray(filteredUsers) && filteredUsers.length > 0 ? (
+              filteredUsers.map((user, index) => (
                 <tr
                   key={user.id}
                   className={index % 2 === 0 ? "bg-gray-50" : ""}
