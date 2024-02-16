@@ -7,7 +7,7 @@ const Merchant = () => {
   useEffect(() => {
     try {
       const fetchuser = async () => {
-        const response = await axios.get("http://localhost:3000/user");
+        const response = await axios.get("http://localhost:3000/user", {});
         setUsers(response.data);
       };
       fetchuser();

@@ -1,14 +1,20 @@
 import axios from "axios";
 import { useState, FormEvent } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+// import { useAuth } from "../contexts/AuthContext";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  // const { setAuthTokens } = useAuth();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const response = await axios.post(
         "http://localhost:3000/merchant/login",
@@ -17,10 +23,13 @@ const Signin = () => {
           password: password,
         }
       );
-      console.log(response.data);
-      console.log(response.data.message);
+      navigate("/merchant");
+      // setAuthTokens(response.data);
+      console.log(response.data.accessToken);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -62,8 +71,9 @@ const Signin = () => {
           <button
             type='submit'
             className='rounded-[10px] bg-green-900 w-3/4 mx-auto px-3 py-2 mb-[10px]'
+            disabled={isLoading}
           >
-            Sign In
+            {isLoading ? "Signning in >>>" : "Sign In"}
           </button>
         </form>
         <a href='/forgotten_password' className='text-green-900 text-sm'>

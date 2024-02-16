@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -8,8 +9,11 @@ const Signup = () => {
   const [shopName, setShopName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSignUp = async () => {
+    setIsLoading(true);
     try {
       const res = await axios.post("http://localhost:3000/merchant", {
         name: name,
@@ -18,8 +22,11 @@ const Signup = () => {
         password: password,
       });
       console.log(res.data);
-    } catch (error) {
-      console.log();
+      navigate("/merchant");
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -75,8 +82,9 @@ const Signup = () => {
           <button
             className='rounded-[10px] bg-green-900 px-3 py-2 w-3/4 mx-auto mb-[10px]'
             onClick={handleSignUp}
+            disabled={isLoading}
           >
-            Sign Up
+            {isLoading ? "Signing up ..." : "Sign Up"}
           </button>
         </form>
         <a href='' className='text-green-900 text-sm'>

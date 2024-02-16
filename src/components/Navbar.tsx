@@ -11,7 +11,7 @@ const Navbar = () => {
           <a href='/'>Home</a>
         </li>
         <li className='ml-5'>
-          <a href='/privacy_policy'>Privacy policy</a>
+          <a href='/privacy'>Privacy policy</a>
         </li>
         <li className='ml-5'>
           <a href='/contact'>Contact Us</a>

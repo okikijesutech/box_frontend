@@ -16,7 +16,10 @@ const Product = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/product", {});
+        const response = await axios.get(
+          "http://localhost:3000/merchant/product",
+          {}
+        );
         setProducts(response.data);
       } catch (error) {
         console.log(error);
@@ -36,7 +39,7 @@ const Product = () => {
           <div className='border-black border-[2px] w-[250px] rounded-md px-3 py-2'>
             <input
               type='text'
-              className='mr-3'
+              className='mr-3 focus:outline-none'
               onChange={(e) => setSearch(e.target.value)}
             />
             <button>
