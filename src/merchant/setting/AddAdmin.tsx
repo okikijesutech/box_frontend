@@ -40,6 +40,7 @@ const AddAdmin = () => {
                 id='password'
                 className='border-b-2 border-black focus:outline-none'
               />
+              <button type='submit'>Add Admin</button>
             </form>
           </div>
           <div className='flex-1'>

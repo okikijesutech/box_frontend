@@ -3,6 +3,7 @@ import axios from "axios";
 import MerchantLayout from "../../layouts/MerchantLayout";
 import ProductLayout from "../../layouts/ProductLayout";
 import { FaSearch } from "react-icons/fa";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface ProductType {
   id: number;
@@ -13,12 +14,17 @@ interface ProductType {
 const Product = () => {
   const [products, setProducts] = useState<ProductType[]>([]);
   const [search, setSearch] = useState("");
+  const { accessToken } = useAuth();
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
           "http://localhost:3000/merchant/product",
-          {}
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
         );
         setProducts(response.data);
       } catch (error) {
@@ -26,7 +32,7 @@ const Product = () => {
       }
     };
     fetchProduct();
-  }, []);
+  }, [accessToken]);
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(search.toLowerCase())

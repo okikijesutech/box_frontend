@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, FormEvent } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-// import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -10,7 +10,7 @@ const Signin = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  // const { setAuthTokens } = useAuth();
+  const { setAuthTokens, setUser } = useAuth();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,9 +23,10 @@ const Signin = () => {
           password: password,
         }
       );
+      const { accessToken, refreshToken, user } = response.data;
+      setAuthTokens({ accessToken, refreshToken });
+      setUser(user);
       navigate("/merchant");
-      // setAuthTokens(response.data);
-      console.log(response.data.accessToken);
     } catch (error) {
       console.log(error);
     } finally {

@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react";
 import MerchantLayout from "../layouts/MerchantLayout";
 import axios from "axios";
+import { useAuth } from "../contexts/AuthContext";
 
 const Merchant = () => {
   const [users, setUsers] = useState([]);
+  const { accessToken } = useAuth();
   useEffect(() => {
-    try {
-      const fetchuser = async () => {
-        const response = await axios.get("http://localhost:3000/user", {});
+    const fetchuser = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/user", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
         setUsers(response.data);
-      };
-      fetchuser();
-    } catch (error) {
-      console.log(error);
-    }
-  });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchuser();
+  }, [accessToken]);
   return (
     <MerchantLayout>
       <h1 className='text-[48px]'>Overview</h1>

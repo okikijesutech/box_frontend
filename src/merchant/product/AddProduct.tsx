@@ -8,6 +8,7 @@ const AddProduct = () => {
   const [quantity, setQunatity] = useState("");
   const [desc, setDesc] = useState("");
   const [price, setPrice] = useState("");
+  const [selectedImage, setSelectedImage] = useState("");
 
   const handleSubmit = () => {
     try {
@@ -51,14 +52,29 @@ const AddProduct = () => {
               onChange={(e) => setPrice(e.target.value)}
             />
             <label htmlFor='productJpeg'>Image</label>
-            <input type='text' id='productJpeg' />
+            <input
+              type='file'
+              accept='image/*'
+              onChange={(e) => setSelectedImage(e.target.value)}
+              id='productJpeg'
+            />
+            {/* {selectedImage && (
+              <div>
+                <h3>preview</h3>
+                <img
+                  src={URL.createObjectURL(selectedImage)}
+                  alt='preview'
+                  style={{ maxWidth: "300px", maxHeight: "300px" }}
+                />
+              </div>
+            )} */}
+            <button
+              type='submit'
+              className='bg-white rounded-[30px] px-3 py-2 mt-5'
+            >
+              Add Product
+            </button>
           </form>
-          <button
-            type='submit'
-            className='bg-white rounded-[30px] px-3 py-2 mt-5'
-          >
-            Add Product
-          </button>
         </div>
       </ProductLayout>
     </MerchantLayout>
