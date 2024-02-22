@@ -1,4 +1,11 @@
-import React, { useState, useContext, createContext, ReactNode } from "react";
+import axios from "axios";
+import React, {
+  useState,
+  useContext,
+  createContext,
+  ReactNode,
+  useEffect,
+} from "react";
 
 // Define props types for AuthProvider
 interface AuthProviderProps {
@@ -34,36 +41,88 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // State to manage access and refresh tokens
   const [accessToken, setAccessToken] = useState<string | null>(
-    localStorage.getItem("accessToken") ?? null
+    sessionStorage.getItem("accessToken") as string | null
   );
-  const [refreshToken, setRefreshToken] = useState<string | null>(
-    localStorage.getItem("refreshToken") ?? null
+  const [refreshTokenState, setRefreshToken] = useState<string | null>(
+    sessionStorage.getItem("refreshToken") as string | null
   );
   const [user, setUserState] = useState<UserData | null>(
-    JSON.parse(localStorage.getItem("user") ?? "null")
+    JSON.parse(sessionStorage.getItem("user") ?? "null")
   );
+
+  useEffect(() => {
+    const validateAccessToken = async () => {
+      try {
+        if (!accessToken) {
+          clearAuthTokens(); // Clear tokens if accessToken is missing
+          return;
+        }
+
+        // Check if accessToken is still valid
+        await axios.get("http://localhost:3000/merchant", {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+
+        // If accessToken is valid, do nothing
+      } catch (error: any) {
+        console.error("Error validating access token:", error);
+
+        if (
+          error.response &&
+          error.response.status === 401 &&
+          refreshTokenState
+        ) {
+          // If accessToken is invalid and refreshToken is available, use refreshToken to get a new accessToken
+          await refreshAccessToken();
+        } else {
+          clearAuthTokens(); // Clear tokens if validation fails or refreshToken is not available
+        }
+      }
+    };
+
+    validateAccessToken();
+  }, [accessToken, refreshTokenState]);
+
+  const refreshAccessToken = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/merchant/refresh-token",
+        {
+          refreshToken,
+        }
+      );
+      setAccessToken(response.data.accessToken);
+    } catch (error: unknown) {
+      console.error("Error refreshing access token:", error);
+      clearAuthTokens(); // Clear tokens if refresh fails
+    }
+  };
 
   // Function to set authentication tokens
   const setAuthTokens = ({ accessToken, refreshToken }: AuthTokens) => {
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
+    sessionStorage.setItem("accessToken", accessToken || "");
+    sessionStorage.setItem("refreshToken", refreshToken || "");
     setAccessToken(accessToken);
     setRefreshToken(refreshToken);
   };
 
   const setUser = (userData: UserData) => {
-    localStorage.setItem("user", JSON.stringify(userData));
+    sessionStorage.setItem("user", JSON.stringify(userData));
     setUserState(userData);
   };
 
   // Function to clear authentication tokens
   const clearAuthTokens = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("accessToken");
+    sessionStorage.removeItem("refreshToken");
+    sessionStorage.removeItem("user");
     setAccessToken(null);
     setRefreshToken(null);
     setUserState(null);
+  };
+
+  const refreshToken = async () => {
+    await refreshAccessToken();
   };
 
   // Provide authentication context to children components
@@ -71,7 +130,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     <AuthContext.Provider
       value={{
         accessToken,
-        refreshToken,
+        refreshToken: refreshTokenState,
         user,
         setAuthTokens,
         setUser,

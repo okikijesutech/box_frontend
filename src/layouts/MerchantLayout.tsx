@@ -20,7 +20,7 @@ const MerchantLayout: React.FC<MerchantLayoutProps> = ({ children }) => {
       <div>
         <div className='p-4 bg-slate-500 w-[1350px] flex items-center justify-between'>
           <div className=''>
-            <h3>{user?.name}</h3>
+            <h3>{user ? user?.name : "Guest"}</h3>
           </div>
           <div className=''>
             <button

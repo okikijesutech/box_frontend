@@ -26,6 +26,7 @@ const Product = () => {
             },
           }
         );
+        console.log(response.data);
         setProducts(response.data);
       } catch (error) {
         console.log(error);
@@ -34,9 +35,11 @@ const Product = () => {
     fetchProduct();
   }, [accessToken]);
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredProducts = products
+    ? products.filter((product) =>
+        product.name.toLowerCase().includes(search.toLowerCase())
+      )
+    : [];
 
   return (
     <MerchantLayout>
