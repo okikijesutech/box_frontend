@@ -17,7 +17,7 @@ const Navbar = () => {
           <a href='/contact'>Contact Us</a>
         </li>
         <li className='ml-5'>
-          <a href='/signin'>Merchant Dashboard</a>
+          <a href='/merchant'>Merchant Dashboard</a>
         </li>
       </ul>
     </nav>

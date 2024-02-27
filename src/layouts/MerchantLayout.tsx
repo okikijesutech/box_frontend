@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import MerchantSidebar from "../components/MerchantSidebar";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,11 @@ interface MerchantLayoutProps {
 const MerchantLayout: React.FC<MerchantLayoutProps> = ({ children }) => {
   const { clearAuthTokens, user } = useAuth();
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!user) {
+      navigate("/signin");
+    }
+  }, []);
   const handleLogOut = () => {
     clearAuthTokens();
     navigate("/");
