@@ -20,7 +20,10 @@ import {
   Settings,
 } from "./merchant";
 import "./index.css";
+import env from "dotenv";
 import { AuthProvider } from "./contexts/AuthContext";
+
+env.config();
 
 const router = createBrowserRouter([
   {
