@@ -3,8 +3,10 @@ import ProductLayout from "../../layouts/ProductLayout";
 import MerchantLayout from "../../layouts/MerchantLayout";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const AddProduct = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
   const [quantity, setQunatity] = useState(0);
   const [desc, setDesc] = useState("");
@@ -13,6 +15,7 @@ const AddProduct = () => {
   const { accessToken, user } = useAuth();
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     try {
       const formData = new FormData();
 
@@ -37,6 +40,8 @@ const AddProduct = () => {
       console.log(response.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -94,7 +99,7 @@ const AddProduct = () => {
               type='submit'
               className='bg-white rounded-[30px] px-3 py-2 mt-5'
             >
-              Add Product
+              {isLoading ? <LoadingSpinner /> : "Add Product"}
             </button>
           </form>
         </div>
