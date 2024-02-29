@@ -88,10 +88,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const response = await axios.post(
         "http://localhost:3000/merchant/refresh-token",
         {
-          refreshTokenState,
+          refreshToken: refreshTokenState,
         }
       );
-      setAccessToken(response.data.accessToken);
+      setAuthTokens({
+        accessToken: response.data.accessToken,
+        refreshToken: refreshTokenState,
+      });
+      // setAccessToken(response.data.accessToken);
     } catch (error: unknown) {
       console.error("Error refreshing access token:", error);
       clearAuthTokens(); // Clear tokens if refresh fails

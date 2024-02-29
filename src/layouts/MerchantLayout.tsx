@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import MerchantSidebar from "../components/MerchantSidebar";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -10,16 +10,21 @@ interface MerchantLayoutProps {
 const MerchantLayout: React.FC<MerchantLayoutProps> = ({ children }) => {
   const { clearAuthTokens, user } = useAuth();
   const navigate = useNavigate();
+
+  const [isUserDataLoaded, setIsUserDataLoaded] = useState(false);
+
   useEffect(() => {
     if (!user) {
       navigate("/signin");
+    } else {
+      setIsUserDataLoaded(true);
     }
   }, []);
   const handleLogOut = () => {
     clearAuthTokens();
     navigate("/");
   };
-  return (
+  return isUserDataLoaded ? (
     <div className='flex'>
       <MerchantSidebar />
       <div>
@@ -40,7 +45,7 @@ const MerchantLayout: React.FC<MerchantLayoutProps> = ({ children }) => {
         <main className='px-6 py-4'>{children}</main>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default MerchantLayout;

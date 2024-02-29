@@ -19,7 +19,7 @@ const Product = () => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/merchant/product?merchantId=${user?.id}`,
+          `http://localhost:3000/merchant/${user?.id}/product`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
