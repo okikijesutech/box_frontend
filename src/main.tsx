@@ -15,15 +15,13 @@ import {
   AddAdmin,
   AddProduct,
   BankAndPayment,
+  ChatPage,
   Merchant,
   Product,
   Settings,
 } from "./merchant";
 import "./index.css";
-import env from "dotenv";
 import { AuthProvider } from "./contexts/AuthContext";
-
-env.config();
 
 const router = createBrowserRouter([
   {
@@ -104,6 +102,10 @@ const router = createBrowserRouter([
   {
     path: "/merchant/settings/bankandpayment",
     element: <BankAndPayment />,
+  },
+  {
+    path: "/merchant/chat",
+    element: <ChatPage />,
   },
 ]);
 

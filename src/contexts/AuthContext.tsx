@@ -88,7 +88,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const response = await axios.post(
         "http://localhost:3000/merchant/refresh-token",
         {
-          refreshToken,
+          refreshTokenState,
         }
       );
       setAccessToken(response.data.accessToken);
@@ -121,9 +121,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUserState(null);
   };
 
-  const refreshToken = async () => {
-    await refreshAccessToken();
-  };
+  // const refreshToken = async () => {
+  //   await refreshAccessToken();
+  // };
 
   // Provide authentication context to children components
   return (

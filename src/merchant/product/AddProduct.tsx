@@ -9,29 +9,25 @@ const AddProduct = () => {
   const [quantity, setQunatity] = useState(0);
   const [desc, setDesc] = useState("");
   const [price, setPrice] = useState("");
-  const [selectedImage, setSelectedImage] = useState("");
-  const { accessToken } = useAuth();
+  // const [selectedImage, setSelectedImage] = useState<File | string>("");
+  const { accessToken, user } = useAuth();
 
   const handleSubmit = async () => {
     try {
-      // const formData = new FormData(); // Create FormData object
+      const formData = new FormData();
 
-      // // Append form fields to FormData object
-      // formData.append("name", name);
-      // formData.append("quantity", quantity.toString());
-      // formData.append("desc", desc);
-      // formData.append("price", price);
+      // Append form fields to FormData object
+      if (name !== undefined) formData.append("name", name);
+      if (name !== undefined) formData.append("quantity", quantity.toString()); // Convert quantity to string
+      if (name !== undefined) formData.append("desc", desc);
+      if (price !== undefined) formData.append("price", price);
+      if (user?.id !== undefined) formData.append("merchantId", user?.id);
       // formData.append("image", selectedImage); // Append selected image file
 
       const response = await axios.post(
         "http://localhost:3000/merchant/product",
-        // formData,
+        formData,
         {
-          name: name,
-          quantity: quantity,
-          desc: desc,
-          price: price,
-          image: selectedImage,
           headers: {
             Authorization: `Bearer ${accessToken}`,
             "Content-Type": "multipart/from-data",
@@ -76,7 +72,12 @@ const AddProduct = () => {
             <input
               type='file'
               accept='image/*'
-              onChange={(e) => setSelectedImage(e.target.value)}
+              onChange={(e) => {
+                const file = e.target.files && e.target.files[0];
+                if (file) {
+                  // setSelectedImage(file);
+                }
+              }}
               id='productJpeg'
             />
             {/* {selectedImage && (

@@ -17,8 +17,8 @@ const Signin = () => {
   const navigate = useNavigate();
   const { setAuthTokens, setUser } = useAuth();
 
-  const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:3000/merchant"; // Accessing the environment variable
+  // const backendUrl =
+  //   process.env.REACT_APP_BACKEND_URL || "http://localhost:3000/merchant"; // Accessing the environment variable
 
   const validateForm = () => {
     let isValid = true;
@@ -50,8 +50,8 @@ const Signin = () => {
 
     try {
       const response = await axios.post(
-        // "http://localhost:3000/merchant/login",
-        backendUrl + "/login",
+        "http://localhost:3000/merchant/login",
+        // backendUrl + "/login",
         {
           email,
           password,

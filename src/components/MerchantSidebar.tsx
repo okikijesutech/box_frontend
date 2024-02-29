@@ -1,4 +1,4 @@
-import { FaUser, FaEye, FaGears } from "react-icons/fa6";
+import { FaUser, FaEye, FaGears, FaBullseye } from "react-icons/fa6";
 
 const Sidebar = () => {
   return (
@@ -21,6 +21,10 @@ const Sidebar = () => {
         <li className='flex items-center mt-2'>
           <FaGears size={24} style={{ marginRight: "15px" }} />
           <a href='/merchant/settings'>Setting</a>
+        </li>
+        <li className='flex items-center mt-2'>
+          <FaBullseye size={24} style={{ marginRight: "15px" }} />
+          <a href='/merchant/chat'>Chats</a>
         </li>
       </ul>
     </div>

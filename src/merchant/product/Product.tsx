@@ -14,12 +14,12 @@ interface ProductType {
 const Product = () => {
   const [products, setProducts] = useState<ProductType[]>([]);
   const [search, setSearch] = useState("");
-  const { accessToken } = useAuth();
+  const { accessToken, user } = useAuth();
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/merchant/product",
+          `http://localhost:3000/merchant/product?merchantId=${user?.id}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
