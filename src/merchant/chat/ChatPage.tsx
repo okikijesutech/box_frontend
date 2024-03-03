@@ -1,5 +1,11 @@
+import MerchantLayout from "../../layouts/MerchantLayout";
+
 const ChatPage = () => {
-  return <div>ChatPage</div>;
+  return (
+    <MerchantLayout>
+      <div>ChatPage</div>
+    </MerchantLayout>
+  );
 };
 
 export default ChatPage;

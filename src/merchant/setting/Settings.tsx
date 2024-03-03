@@ -3,13 +3,15 @@ import MerchantLayout from "../../layouts/MerchantLayout";
 import SettingLayout from "../../layouts/SettingLayout";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
+import { FaEdit } from "react-icons/fa";
 
 const Settings = () => {
-  const { accessToken, user } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [merchantType, setMerchantType] = useState("");
   const [shopName, setShopName] = useState("");
+  const [modal, setModal] = useState(false);
+  const { accessToken, user } = useAuth();
 
   useEffect(() => {
     const fetchuser = async () => {
@@ -40,7 +42,6 @@ const Settings = () => {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-          email: email,
           shopName: shopName,
           name: name,
         }
@@ -56,6 +57,21 @@ const Settings = () => {
       <div>
         <SettingLayout>
           <div className='p-4 mt-6 rounded-md max-w-[600px] ml-[45px] bg-green-600'>
+            <div>
+              <div className='flex items-center justify-between'>
+                <h4>{name}</h4>
+              </div>
+              <div className='flex items-center justify-between'>
+                <p>{email}</p>
+              </div>
+              <div className='flex items-center justify-between'>
+                <p>{shopName}</p>
+                <button onClick={() => setModal(true)}>
+                  <FaEdit />
+                </button>
+              </div>
+              <p></p>
+            </div>
             <form onSubmit={handleUpdate} className='flex flex-col '>
               <label htmlFor=''>email</label>
               <input
@@ -92,9 +108,20 @@ const Settings = () => {
             </form>
             <h3>{shopName}</h3>
           </div>
+          {modal && <Modal />}
         </SettingLayout>
       </div>
     </MerchantLayout>
+  );
+};
+
+const Modal = (id: any) => {
+  return (
+    <div className='bg-green-500 w-[300px] h-[300px] absolute top-[100px] left-[600px]'>
+      <button></button>
+
+      <h1>update text</h1>
+    </div>
   );
 };
 

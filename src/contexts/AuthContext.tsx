@@ -24,6 +24,8 @@ interface UserData {
   name: string;
   shopName: string;
   merchantType: string;
+  accName: string;
+  accNo: string;
 }
 
 // Define the context type combining AuthTokens with functions to manipulate them

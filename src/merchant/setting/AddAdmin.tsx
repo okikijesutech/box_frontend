@@ -1,5 +1,8 @@
+import { useEffect, useState } from "react";
 import MerchantLayout from "../../layouts/MerchantLayout";
 import SettingLayout from "../../layouts/SettingLayout";
+import axios from "axios";
+import { useAuth } from "../../contexts/AuthContext";
 
 const admins = [
   {
@@ -21,23 +24,32 @@ const admins = [
 ];
 
 const AddAdmin = () => {
+  const [allUsers, setAllUsers] = useState([]);
+  const [search, setSearch] = useState("");
+  const { accessToken } = useAuth();
+  useEffect(() => {
+    const fetchAllUsers = async () => {
+      const response = await axios.get("http://localhost:3000/user", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setAllUsers(response.data);
+    };
+    fetchAllUsers();
+  }, [accessToken]);
   return (
     <MerchantLayout>
       <SettingLayout>
         <div className='flex '>
           <div className='flex-1 px-4'>
             <form action='' className='flex flex-col'>
-              <label htmlFor='email'>Email</label>
+              <label htmlFor='email'>search by email</label>
               <input
                 type='email'
                 name=''
                 id='email'
-                className='border-b-2 border-black focus:outline-none'
-              />
-              <label htmlFor='password'>Password</label>
-              <input
-                type='password'
-                id='password'
+                onChange={(e) => setSearch(e.target.value)}
                 className='border-b-2 border-black focus:outline-none'
               />
               <button type='submit'>Add Admin</button>
