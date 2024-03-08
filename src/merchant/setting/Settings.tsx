@@ -99,13 +99,12 @@ const Settings = () => {
                 name=''
                 id='shopName'
               />
-              <label
-                htmlFor='merchantType'
+              <label htmlFor='merchantType'>Merchant Type</label>
+              <select
+                name=''
+                id='merchantType'
                 onChange={(e) => setMerchantType(e.target.value)}
               >
-                Merchant Type
-              </label>
-              <select name='' id='merchantType'>
                 <option value='resturant'>Resturant</option>
                 <option value='convineceStore'>Convinece Store</option>
                 <option value='Barber'>Barber</option>
