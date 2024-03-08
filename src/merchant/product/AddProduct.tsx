@@ -4,6 +4,7 @@ import MerchantLayout from "../../layouts/MerchantLayout";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,6 +14,7 @@ const AddProduct = () => {
   const [price, setPrice] = useState("");
   // const [selectedImage, setSelectedImage] = useState<File | string>("");
   const { accessToken, user } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     setIsLoading(true);
@@ -37,7 +39,7 @@ const AddProduct = () => {
           },
         }
       );
-      console.log(response.data);
+      navigate("/merchant/product");
     } catch (error) {
       console.log(error);
     } finally {

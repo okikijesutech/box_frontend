@@ -30,6 +30,9 @@ const BankAndPayment = () => {
       toast.error("Not submitted");
     }
   };
+  const closeModal = () => {
+    setModal(false);
+  };
   return (
     <MerchantLayout>
       <SettingLayout>
@@ -67,16 +70,45 @@ const BankAndPayment = () => {
             <button type='submit'>Update</button>
           </form>
         </div>
-        {modal && <Modal />}
+        {modal && <Modal closeModal={closeModal} />}
       </SettingLayout>
     </MerchantLayout>
   );
 };
 
-const Modal = () => {
+const Modal = ({ closeModal }: any) => {
   return (
-    <div>
-      <p>Add bank modal</p>
+    <div className='fixed z-10 inset-0 overflow-y-auto'>
+      <div className='flex items-center justify-center min-h-screen px-4'>
+        <div
+          className='fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity'
+          onClick={closeModal}
+        ></div>
+        <div className='relative bg-white rounded-lg max-w-md p-6'>
+          <div className='absolute top-0 right-0'>
+            <button
+              className='text-gray-500 hover:text-gray-700'
+              onClick={closeModal}
+            >
+              <svg
+                className='h-6 w-6'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth='2'
+                  d='M6 18L18 6M6 6l12 12'
+                />
+              </svg>
+            </button>
+          </div>
+          <h1 className='text-xl font-bold mb-4'>Update text</h1>
+          {/* Add your content here */}
+        </div>
+      </div>
     </div>
   );
 };

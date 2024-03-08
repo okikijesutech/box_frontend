@@ -16,6 +16,9 @@ interface ProductType {
 const Product = () => {
   const [products, setProducts] = useState<ProductType[]>([]);
   const [search, setSearch] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(
+    null
+  );
   const { accessToken, user } = useAuth();
   const [modal, setModal] = useState(false);
 
@@ -41,10 +44,21 @@ const Product = () => {
   const handleDelete = (id: any) => {
     try {
       axios.delete(`http://localhost:3000/product/${id}`);
+      setProducts(products.filter((product) => product.id !== id)); // Remove the deleted product from state
+      toast.success("Product deleted successfully");
     } catch (error) {
       console.log(error);
       toast.error("Product doesn't exist");
     }
+  };
+
+  const openModal = (product: ProductType) => {
+    setSelectedProduct(product);
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    setModal(false);
   };
 
   const filteredProducts = products
@@ -93,7 +107,7 @@ const Product = () => {
                         </button>
                       </td>
                       <td className='py-2 px-4 border-b'>
-                        <button onClick={() => setModal(true)}>
+                        <button onClick={() => openModal(product)}>
                           view product
                         </button>
                       </td>
@@ -107,37 +121,29 @@ const Product = () => {
               </tbody>
             </table>
           </div>
-          {modal && <Modal id={products} />}
+          {modal && <Modal product={selectedProduct} closeModal={closeModal} />}
         </ProductLayout>
       </div>
     </MerchantLayout>
   );
 };
 
-const Modal = (id: any) => {
-  const [close, setClose] = useState(false);
-  const [product, setProduct] = useState([]);
-  useEffect(() => {
-    const fetchProductById = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/product/${id}`);
-        setProduct(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchProductById();
-  }, []);
-  const handleClose = () => {
-    setClose(true);
-  };
+const Modal = ({
+  product,
+  closeModal,
+}: {
+  product: ProductType | null;
+  closeModal: () => void;
+}) => {
+  if (!product) return null;
+
   return (
     <div className='bg-green-500 w-[300px] h-[300px] absolute top-[100px] left-[600px]'>
-      <button onClick={handleClose}>
+      <button onClick={closeModal}>
         <FaXmark />
       </button>
-      <h3>{product}</h3>
-      <p>{product}</p>
+      <h3>{product.name}</h3>
+      <p>quantity: {product.quantity}</p>
       <h1>product</h1>
     </div>
   );
