@@ -4,148 +4,48 @@ import SettingLayout from "../../layouts/SettingLayout";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
 import { FaEdit } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
 
-const Settings = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [merchantType, setMerchantType] = useState("");
-  const [shopName, setShopName] = useState("");
-  const [modal, setModal] = useState(false);
-  const { accessToken, user } = useAuth();
+const Modal = ({
+  closeModal,
+  name,
+  shopName,
+  merchantType,
 
-  useEffect(() => {
-    const fetchuser = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3000/merchant/${user?.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-        setEmail(response.data.email);
-        setName(response.data.name);
-        setShopName(response.data.shopName);
-        setMerchantType(response.data.merchantType);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchuser();
-  }, [accessToken, user]);
+  accessToken,
+  userId,
+}: any) => {
+  const [newName, setNewName] = useState(name);
+  const [newShopName, setNewShopName] = useState(shopName);
+  const [newMerchantType, setNewMerchantType] = useState(merchantType);
 
   const handleUpdate = async () => {
     try {
+      console.log("Merchant ID:", userId);
       const update = await axios.put(
-        `http://localhost:3000/merchant/${user?.id}`,
+        `http://localhost:3000/merchant/${userId}`,
+
+        {
+          name: newName,
+          shopName: newShopName,
+          merchantType: newMerchantType,
+        },
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-          shopName: shopName,
-          name: name,
-          merchantType: merchantType,
         }
       );
       console.log(update);
+      toast.success("Success updating");
+      closeModal();
     } catch (e) {
       console.log(e);
+      toast.error("Error updating");
     }
   };
 
-  const closeModal = () => {
-    setModal(false);
-  };
-
   return (
-    <MerchantLayout>
-      <div>
-        <SettingLayout>
-          <div className='p-4 mt-6 rounded-md max-w-[600px] ml-[45px] bg-green-600'>
-            <div>
-              <div className='flex items-center justify-between'>
-                <h4>{name}</h4>
-              </div>
-              <div className='flex items-center justify-between'>
-                <p>{email}</p>
-              </div>
-              <div className='flex items-center justify-between'>
-                <p>{shopName}</p>
-                <button onClick={() => setModal(true)}>
-                  <FaEdit />
-                </button>
-              </div>
-              <p></p>
-            </div>
-            <form onSubmit={handleUpdate} className='flex flex-col '>
-              <label htmlFor=''>email</label>
-              <input
-                type='text'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <label htmlFor=''>name</label>
-              <input
-                type='text'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <label htmlFor='shopName'>Shop Name</label>
-              <input
-                type='text'
-                value={shopName}
-                onChange={(e) => setShopName(e.target.value)}
-                name=''
-                id='shopName'
-              />
-              <label htmlFor='merchantType'>Merchant Type</label>
-              <select
-                name=''
-                id='merchantType'
-                onChange={(e) => setMerchantType(e.target.value)}
-              >
-                <option value='resturant'>Resturant</option>
-                <option value='convineceStore'>Convinece Store</option>
-                <option value='Barber'>Barber</option>
-              </select>
-              <button
-                type='submit'
-                className='bg-green-800 rounded-lg mt-6 px-3 py-2 w-[125px] mx-auto'
-              >
-                update
-              </button>
-            </form>
-            <h3>{shopName}</h3>
-          </div>
-          {modal && <Modal closeModal={closeModal} />}
-        </SettingLayout>
-      </div>
-    </MerchantLayout>
-  );
-};
-
-const Modal = ({ closeModal }: any) => {
-  return (
-    // <div className='bg-green-500 w-[300px] h-[300px] absolute top-[100px] left-[600px]'>
-    //   <button onClick={closeModal}>
-    //     <svg
-    //       className='h-6 w-6'
-    //       fill='none'
-    //       viewBox='0 0 24 24'
-    //       stroke='currentColor'
-    //     >
-    //       <path
-    //         strokeLinecap='round'
-    //         strokeLinejoin='round'
-    //         strokeWidth='2'
-    //         d='M6 18L18 6M6 6l12 12'
-    //       />
-    //     </svg>
-    //   </button>
-
-    //   <h1>update text</h1>
-    // </div>
     <div className='fixed z-10 inset-0 overflow-y-auto'>
       <div className='flex items-center justify-center min-h-screen px-4'>
         <div
@@ -174,10 +74,109 @@ const Modal = ({ closeModal }: any) => {
             </button>
           </div>
           <h1 className='text-xl font-bold mb-4'>Update text</h1>
-          {/* Add your content here */}
+          <input
+            type='text'
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+          />
+          <input
+            type='text'
+            value={newShopName}
+            onChange={(e) => setNewShopName(e.target.value)}
+          />
+          <select
+            value={newMerchantType}
+            onChange={(e) => setNewMerchantType(e.target.value)}
+          >
+            <option value='resturant'>Resturant</option>
+            <option value='convineceStore'>Convinece Store</option>
+            <option value='Barber'>Barber</option>
+          </select>
+          <button
+            onClick={handleUpdate}
+            className='bg-green-800 rounded-lg mt-6 px-3 py-2 w-[125px] mx-auto'
+          >
+            Update
+          </button>
         </div>
       </div>
     </div>
+  );
+};
+const Settings = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [merchantType, setMerchantType] = useState("");
+  const [shopName, setShopName] = useState("");
+  const [modal, setModal] = useState(false);
+  const { accessToken, user } = useAuth();
+
+  useEffect(() => {
+    const fetchuser = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/merchant/${user?.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        setEmail(response.data.email);
+        setName(response.data.name);
+        setShopName(response.data.shopName);
+        setMerchantType(response.data.merchantType);
+        console.log(accessToken);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchuser();
+  }, [accessToken, user]);
+
+  const closeModal = () => {
+    setModal(false);
+  };
+
+  return (
+    <MerchantLayout>
+      <ToastContainer />
+      <div>
+        <SettingLayout>
+          <div className='p-4 mt-6 rounded-md max-w-[600px] ml-[45px] bg-green-600'>
+            <div>
+              <div className='flex items-center justify-between'>
+                <h4>{name}</h4>
+              </div>
+              <div className='flex items-center justify-between'>
+                <p>{email}</p>
+              </div>
+              <div className='flex items-center justify-between'>
+                <p>{shopName}</p>
+                <button onClick={() => setModal(true)}>
+                  <FaEdit />
+                </button>
+              </div>
+              <p></p>
+            </div>
+
+            <h3>{shopName}</h3>
+          </div>
+          {modal && (
+            <Modal
+              closeModal={closeModal}
+              name={name}
+              shopName={shopName}
+              merchantType={merchantType}
+              setName={setName}
+              setShopName={setShopName}
+              setMerchantType={setMerchantType}
+              userId={user?.id}
+            />
+          )}
+        </SettingLayout>
+      </div>
+    </MerchantLayout>
   );
 };
 
