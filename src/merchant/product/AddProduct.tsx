@@ -12,22 +12,31 @@ const AddProduct = () => {
   const [quantity, setQunatity] = useState(0);
   const [desc, setDesc] = useState("");
   const [price, setPrice] = useState("");
-  // const [selectedImage, setSelectedImage] = useState<File | string>("");
+  const [image, setImage] = useState<File | string>("");
   const { accessToken, user } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      setImage(file);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setIsLoading(true);
     try {
       const formData = new FormData();
 
       // Append form fields to FormData object
       if (name !== undefined) formData.append("name", name);
-      if (name !== undefined) formData.append("quantity", quantity.toString()); // Convert quantity to string
-      if (name !== undefined) formData.append("desc", desc);
+      if (quantity !== undefined)
+        formData.append("quantity", quantity.toString()); // Convert quantity to string
+      if (desc !== undefined) formData.append("desc", desc);
       if (price !== undefined) formData.append("price", price);
       if (user?.id !== undefined) formData.append("merchantId", user?.id);
-      // formData.append("image", selectedImage); // Append selected image file
+      if (image !== undefined) formData.append("image", image);
 
       const response = await axios.post(
         "http://localhost:3000/merchant/product",
@@ -39,7 +48,7 @@ const AddProduct = () => {
           },
         }
       );
-      navigate("/merchant/product");
+      if (response.status === 200) navigate("/merchant/product");
     } catch (error) {
       console.log(error);
     } finally {
@@ -55,48 +64,54 @@ const AddProduct = () => {
             <input
               type='text'
               id='name'
+              value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <label htmlFor='quantity'>Quantity</label>
             <input
               type='text'
               id='quantity'
+              value={quantity}
               onChange={(e) => setQunatity(parseInt(e.target.value))}
             />
             <label htmlFor='desc'>Description</label>
             <input
               type='text'
               id='desc'
+              value={desc}
               onChange={(e) => setDesc(e.target.value)}
             />
             <label htmlFor='price'>Price for each</label>
             <input
               type='text'
               id='price'
+              value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
-            <label htmlFor='productJpeg'>Image</label>
-            <input
-              type='file'
-              accept='image/*'
-              onChange={(e) => {
-                const file = e.target.files && e.target.files[0];
-                if (file) {
-                  // setSelectedImage(file);
-                }
-              }}
-              id='productJpeg'
-            />
-            {/* {selectedImage && (
-              <div>
-                <h3>preview</h3>
+            <label htmlFor='productJpeg' className='relative'>
+              {image ? (
                 <img
-                  src={URL.createObjectURL(selectedImage)}
-                  alt='preview'
-                  style={{ maxWidth: "300px", maxHeight: "300px" }}
+                  src={
+                    typeof image === "string"
+                      ? image
+                      : URL.createObjectURL(image)
+                  }
+                  alt='Product'
+                  className='w-full h-full object-cover'
                 />
-              </div>
-            )} */}
+              ) : (
+                <div className='w-full h-full flex justify-center items-center bg-gray-200'>
+                  <span className='text-4xl text-gray-400'>+</span>
+                </div>
+              )}
+              <input
+                type='file'
+                accept='image/*'
+                onChange={handleChange}
+                id='productJpeg'
+              />
+            </label>
+
             <button
               type='submit'
               className='bg-white rounded-[30px] px-3 py-2 mt-5'
