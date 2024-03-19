@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { FaUser, FaEye, FaCogs, FaBullseye } from "react-icons/fa";
+import { FaUser, FaEye, FaCogs, FaBullseye, FaList } from "react-icons/fa";
 import { useLocation, Link } from "react-router-dom";
 
 interface SidebarItemProps {
@@ -14,7 +14,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ icon, text, path }) => {
   return (
     <li
       className={`flex items-center mt-2 ${
-        location.pathname === path
+        location.pathname.startsWith(path)
           ? "bg-white text-green-500 px-3 rounded-md"
           : ""
       }`}
@@ -42,6 +42,11 @@ const Sidebar = () => {
           icon={<FaEye size={24} style={{ marginRight: "15px" }} />}
           text='Overview'
           path='/merchant'
+        />
+        <SidebarItem
+          icon={<FaList size={24} style={{ marginRight: "15px" }} />}
+          text='Order'
+          path='/order'
         />
         <SidebarItem
           icon={<FaUser size={24} style={{ marginRight: "15px" }} />}

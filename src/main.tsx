@@ -19,6 +19,7 @@ import {
   Merchant,
   Product,
   Settings,
+  Order,
 } from "./merchant";
 import "./index.css";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
   {
     path: "/merchant/chat",
     element: <ChatPage />,
+  },
+  {
+    path: "/order",
+    element: <Order />,
   },
 ]);
 

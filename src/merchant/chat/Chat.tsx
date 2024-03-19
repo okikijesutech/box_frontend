@@ -1,26 +1,32 @@
 import { useEffect, useState } from "react";
-import io from "socket.io-client";
+import { Socket } from "socket.io-client";
 
 interface Message {
   content: string;
   sender: string;
 }
 
-const Chat = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+interface Props {
+  initialMessages: Message[]; // Explicitly specify the type of initialMessages
+  sender: string;
+  socket: Socket; // Assuming you have imported SocketIOClient
+}
+
+const Chat = ({ initialMessages, sender, socket }: Props) => {
+  const [messages, setMessages] = useState<Message[]>(initialMessages || []);
   const [message, setMessage] = useState("");
-  const socket = io("http://localhost:3000");
 
   useEffect(() => {
-    socket.on("chat message", (msg: Message) => {
-      setMessages([...messages, msg]);
+    socket.on("message", (msg: Message) => {
+      setMessages((prevMessages) => [...prevMessages, msg]);
     });
-  }, [messages, socket]);
+  }, [socket]);
 
   const handleSend = () => {
-    socket.emit("chat message", message);
+    socket.emit("message", { content: message, sender });
     setMessage("");
   };
+
   return (
     <div className='max-w-md mx-auto mt-10 p-4 border rounded-lg shadow-lg'>
       <ul className='overflow-y-auto max-h-72'>
