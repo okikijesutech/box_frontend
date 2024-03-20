@@ -88,7 +88,7 @@ const AddProduct = () => {
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
-            <label htmlFor='productJpeg' className='relative'>
+            <label htmlFor='productJpeg' className='relative mt-6 h-[100px]'>
               {image ? (
                 <img
                   src={
@@ -109,6 +109,7 @@ const AddProduct = () => {
                 accept='image/*'
                 onChange={handleChange}
                 id='productJpeg'
+                className='hidden'
               />
             </label>
 

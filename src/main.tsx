@@ -20,6 +20,7 @@ import {
   Product,
   Settings,
   Order,
+  Community,
 } from "./merchant";
 import "./index.css";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -77,11 +78,11 @@ const router = createBrowserRouter([
     element: <Merchant />,
   },
   {
-    path: "/merchant/product",
+    path: "/product",
     element: <Product />,
   },
   {
-    path: "/merchant/product/add_product",
+    path: "/product/add_product",
     element: <AddProduct />,
   },
   {
@@ -93,24 +94,28 @@ const router = createBrowserRouter([
     element: <Signup />,
   },
   {
-    path: "/merchant/settings",
+    path: "/settings",
     element: <Settings />,
   },
   {
-    path: "/merchant/settings/add_admin",
+    path: "/settings/add_admin",
     element: <AddAdmin />,
   },
   {
-    path: "/merchant/settings/bankandpayment",
+    path: "/settings/bankandpayment",
     element: <BankAndPayment />,
   },
   {
-    path: "/merchant/chat",
+    path: "/chat",
     element: <ChatPage />,
   },
   {
     path: "/order",
     element: <Order />,
+  },
+  {
+    path: "/community",
+    element: <Community />,
   },
 ]);
 

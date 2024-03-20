@@ -11,30 +11,30 @@ const SettingLayout: React.FC<SettingLayout> = ({ children }) => {
         <ul className='flex'>
           <li
             className={`mr-5 ${
-              location.pathname === "/merchant/settings"
+              location.pathname === "/settings"
                 ? "border-b-2 border-green-500 pb-1 px-2"
                 : ""
             }`}
           >
-            <a href='/merchant/settings'>Basic Info</a>
+            <a href='/settings'>Basic Info</a>
           </li>
           <li
             className={`mr-5 ${
-              location.pathname === "/merchant/settings/add_admin"
+              location.pathname === "/settings/add_admin"
                 ? "border-b-2 border-green-500 pb-1 px-2"
                 : ""
             }`}
           >
-            <a href='/merchant/settings/add_admin'>Add Admin</a>
+            <a href='/settings/add_admin'>Add Admin</a>
           </li>
           <li
             className={`mr-5 ${
-              location.pathname === "/merchant/settings/bankandpayment"
+              location.pathname === "/settings/bankandpayment"
                 ? "border-b-2 border-green-500 pb-1 px-2"
                 : ""
             }`}
           >
-            <a href='/merchant/settings/bankandpayment'>Bank and Payment </a>
+            <a href='/settings/bankandpayment'>Bank and Payment </a>
           </li>
         </ul>
       </div>

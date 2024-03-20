@@ -1,5 +1,12 @@
 import { ReactNode } from "react";
-import { FaUser, FaEye, FaCogs, FaBullseye, FaList } from "react-icons/fa";
+import {
+  FaUser,
+  FaEye,
+  FaCogs,
+  FaBullseye,
+  FaList,
+  FaUsers,
+} from "react-icons/fa";
 import { useLocation, Link } from "react-router-dom";
 
 interface SidebarItemProps {
@@ -30,7 +37,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ icon, text, path }) => {
 
 const Sidebar = () => {
   return (
-    <div className='bg-green-600 w-[200px] text-white h-[100vh] px-6 py-4'>
+    <div className='bg-green-600 w-[240px] text-white h-[100vh] px-6 py-4'>
       <div>
         <a href='/'>
           <p>IN_BOX</p>
@@ -51,17 +58,22 @@ const Sidebar = () => {
         <SidebarItem
           icon={<FaUser size={24} style={{ marginRight: "15px" }} />}
           text='Products'
-          path='/merchant/product'
-        />
-        <SidebarItem
-          icon={<FaCogs size={24} style={{ marginRight: "15px" }} />}
-          text='Setting'
-          path='/merchant/settings'
+          path='/product'
         />
         <SidebarItem
           icon={<FaBullseye size={24} style={{ marginRight: "15px" }} />}
           text='Chats'
-          path='/merchant/chat'
+          path='/chat'
+        />
+        <SidebarItem
+          icon={<FaUsers size={24} style={{ marginRight: "15px" }} />}
+          text='Community'
+          path='/community'
+        />
+        <SidebarItem
+          icon={<FaCogs size={24} style={{ marginRight: "15px" }} />}
+          text='Setting'
+          path='/settings'
         />
       </ul>
     </div>

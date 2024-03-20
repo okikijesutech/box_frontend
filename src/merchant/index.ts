@@ -6,6 +6,7 @@ import AddAdmin from "./setting/AddAdmin";
 import BankAndPayment from "./setting/BankAndPayment";
 import Order from "./order/Order";
 import ChatPage from "./chat/ChatPage";
+import Community from "./community/Community";
 
 export {
   Merchant,
@@ -16,4 +17,5 @@ export {
   Order,
   BankAndPayment,
   ChatPage,
+  Community,
 };
