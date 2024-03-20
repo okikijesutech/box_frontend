@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import MerchantLayout from "../../layouts/MerchantLayout";
 import axios from "axios";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface Order {
   id: string;
@@ -12,18 +13,23 @@ interface Order {
 
 const Order = () => {
   const [orders, setOrders] = useState<Order[]>([]);
+  const { accessToken } = useAuth();
 
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const response = await axios.get("http/localhost:3000/order");
+        const response = await axios.get("http/localhost:3000/order", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
         setOrders(response.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetchOrder();
-  }, []);
+  }, [accessToken]);
 
   return (
     <MerchantLayout>

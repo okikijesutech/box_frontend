@@ -3,6 +3,7 @@ import MerchantLayout from "../../layouts/MerchantLayout";
 import axios from "axios";
 import { FaClosedCaptioning } from "react-icons/fa";
 import ChatSpace from "./ChatSpace";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface GroupChat {
   id: string;
@@ -14,18 +15,22 @@ const Modal = ({ onClose }: { onClose: () => void }) => {
   const [name, setName] = useState("");
   const [membersIds, setMemberIds] = useState<string[]>([]);
   const [members, setMembers] = useState<any[]>([]);
-
+  const { accessToken } = useAuth();
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const response = await axios.get("/members"); // Replace with your API endpoint for fetching members
+        const response = await axios.get("/members", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }); // Replace with your API endpoint for fetching members
         setMembers(response.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetchMembers();
-  }, []);
+  }, [accessToken]);
   const handleMemberToggle = (memberId: string) => {
     if (membersIds.includes(memberId)) {
       setMemberIds(membersIds.filter((id) => id !== memberId));
