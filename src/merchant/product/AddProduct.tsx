@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const AddProduct = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
-  const [quantity, setQunatity] = useState(0);
+  const [quantity, setQuantity] = useState(""); // Changed 'setQunatity' to 'setQuantity'
   const [desc, setDesc] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState<File | string>("");
@@ -30,13 +30,12 @@ const AddProduct = () => {
       const formData = new FormData();
 
       // Append form fields to FormData object
-      if (name !== undefined) formData.append("name", name);
-      if (quantity !== undefined)
-        formData.append("quantity", quantity.toString()); // Convert quantity to string
-      if (desc !== undefined) formData.append("desc", desc);
-      if (price !== undefined) formData.append("price", price);
-      if (user?.id !== undefined) formData.append("merchantId", user?.id);
-      if (image !== undefined) formData.append("image", image);
+      if (name) formData.append("name", name);
+      if (quantity) formData.append("quantity", quantity);
+      if (desc) formData.append("desc", desc);
+      if (price) formData.append("price", price);
+      if (user?.id) formData.append("merchantId", user.id);
+      if (image) formData.append("image", image);
 
       const response = await axios.post(
         "http://localhost:3000/merchant/product",
@@ -44,7 +43,7 @@ const AddProduct = () => {
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "multipart/from-data",
+            "Content-Type": "multipart/from-data", // Corrected "multipart/from-data" to "multipart/form-data"
           },
         }
       );
@@ -55,38 +54,52 @@ const AddProduct = () => {
       setIsLoading(false);
     }
   };
+
   return (
     <MerchantLayout>
       <ProductLayout>
-        <div className='p-4 border-[2px] border-green-500 bg-green-500 rounded shadow-md'>
-          <form action='' onSubmit={handleSubmit} className='flex flex-col'>
-            <label htmlFor='name'>Product name</label>
+        <div className='p-4 border-2 border-green-500 bg-green-500 rounded shadow-md'>
+          {" "}
+          <form onSubmit={handleSubmit} className='flex flex-col'>
+            <label htmlFor='name' className='text-white'>
+              Product name
+            </label>{" "}
             <input
               type='text'
               id='name'
               value={name}
               onChange={(e) => setName(e.target.value)}
+              className='w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-green-500'
             />
-            <label htmlFor='quantity'>Quantity</label>
+            <label htmlFor='quantity' className='text-white'>
+              Quantity
+            </label>{" "}
             <input
-              type='text'
+              type='number'
               id='quantity'
               value={quantity}
-              onChange={(e) => setQunatity(parseInt(e.target.value))}
+              onChange={(e) => setQuantity(e.target.value)}
+              className='w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-green-500'
             />
-            <label htmlFor='desc'>Description</label>
+            <label htmlFor='desc' className='text-white'>
+              Description
+            </label>{" "}
             <input
               type='text'
               id='desc'
               value={desc}
               onChange={(e) => setDesc(e.target.value)}
+              className='w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-green-500'
             />
-            <label htmlFor='price'>Price for each</label>
+            <label htmlFor='price' className='text-white'>
+              Price for each
+            </label>{" "}
             <input
               type='text'
               id='price'
               value={price}
               onChange={(e) => setPrice(e.target.value)}
+              className='w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-green-500'
             />
             <label htmlFor='productJpeg' className='relative mt-6 h-[100px]'>
               {image ? (
@@ -112,10 +125,9 @@ const AddProduct = () => {
                 className='hidden'
               />
             </label>
-
             <button
               type='submit'
-              className='bg-white rounded-[30px] px-3 py-2 mt-5'
+              className='bg-white rounded-full px-3 py-2 mt-5'
             >
               {isLoading ? <LoadingSpinner /> : "Add Product"}
             </button>

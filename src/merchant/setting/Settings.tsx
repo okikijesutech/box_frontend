@@ -5,13 +5,13 @@ import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
 import { FaEdit } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
+import { FaXmark } from "react-icons/fa6";
 
 const Modal = ({
   closeModal,
   name,
   shopName,
   merchantType,
-
   accessToken,
   userId,
 }: any) => {
@@ -21,10 +21,8 @@ const Modal = ({
 
   const handleUpdate = async () => {
     try {
-      console.log("Merchant ID:", userId);
-      const update = await axios.put(
+      await axios.put(
         `http://localhost:3000/merchant/${userId}`,
-
         {
           name: newName,
           shopName: newShopName,
@@ -36,65 +34,52 @@ const Modal = ({
           },
         }
       );
-      console.log(update);
-      toast.success("Success updating");
+      toast.success("Successfully updated");
       closeModal();
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.error("Error updating:", error);
       toast.error("Error updating");
     }
   };
 
   return (
-    <div className='fixed z-10 inset-0 overflow-y-auto'>
-      <div className='flex items-center justify-center min-h-screen px-4'>
-        <div
-          className='fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity'
-          onClick={closeModal}
-        ></div>
-        <div className='relative bg-white rounded-lg max-w-md p-6'>
-          <div className='absolute top-0 right-0'>
-            <button
-              className='text-gray-500 hover:text-gray-700'
-              onClick={closeModal}
-            >
-              <svg
-                className='h-6 w-6'
-                fill='none'
-                viewBox='0 0 24 24'
-                stroke='currentColor'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth='2'
-                  d='M6 18L18 6M6 6l12 12'
-                />
-              </svg>
-            </button>
-          </div>
-          <h1 className='text-xl font-bold mb-4'>Update text</h1>
+    <div className='fixed z-50 inset-0 flex items-center justify-center overflow-y-auto'>
+      <div className='fixed inset-0 bg-gray-500 bg-opacity-75'></div>
+      <div className='relative bg-white rounded-lg max-w-md p-6'>
+        <div className='absolute top-0 right-0'>
+          <button
+            onClick={closeModal}
+            className='text-gray-500 hover:text-gray-700'
+          >
+            <FaXmark />
+          </button>
+        </div>
+        <h1 className='text-xl font-bold mb-4'>Update Merchant Information</h1>
+        <div className='flex flex-col space-y-4'>
           <input
             type='text'
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
+            className='input-field'
           />
           <input
             type='text'
             value={newShopName}
             onChange={(e) => setNewShopName(e.target.value)}
+            className='input-field'
           />
           <select
             value={newMerchantType}
             onChange={(e) => setNewMerchantType(e.target.value)}
+            className='input-field'
           >
-            <option value='resturant'>Resturant</option>
-            <option value='convineceStore'>Convinece Store</option>
-            <option value='Barber'>Barber</option>
+            <option value='restaurant'>Restaurant</option>
+            <option value='store'>Store</option>
+            <option value='service'>Service</option>
           </select>
           <button
             onClick={handleUpdate}
-            className='bg-green-800 rounded-lg mt-6 px-3 py-2 w-[125px] mx-auto'
+            className='bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md mt-6 w-full'
           >
             Update
           </button>
@@ -103,6 +88,7 @@ const Modal = ({
     </div>
   );
 };
+
 const Settings = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -112,7 +98,7 @@ const Settings = () => {
   const { accessToken, user } = useAuth();
 
   useEffect(() => {
-    const fetchuser = async () => {
+    const fetchUser = async () => {
       try {
         const response = await axios.get(
           `http://localhost:3000/merchant/${user?.id}`,
@@ -126,12 +112,11 @@ const Settings = () => {
         setName(response.data.name);
         setShopName(response.data.shopName);
         setMerchantType(response.data.merchantType);
-        console.log(accessToken);
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        console.error("Error fetching user:", error);
       }
     };
-    fetchuser();
+    fetchUser();
   }, [accessToken, user]);
 
   const closeModal = () => {
@@ -141,41 +126,34 @@ const Settings = () => {
   return (
     <MerchantLayout>
       <ToastContainer />
-      <div>
-        <SettingLayout>
-          <div className='p-4 mt-6 rounded-md max-w-[600px] ml-[45px] bg-green-600'>
-            <div>
-              <div className='flex items-center justify-between'>
-                <h4>{name}</h4>
-              </div>
-              <div className='flex items-center justify-between'>
-                <p>{email}</p>
-              </div>
-              <div className='flex items-center justify-between'>
-                <p>{shopName}</p>
-                <button onClick={() => setModal(true)}>
-                  <FaEdit />
-                </button>
-              </div>
-              <p></p>
+      <SettingLayout>
+        <div className='p-4 mt-6 rounded-md max-w-md ml-4 bg-green-600'>
+          <div>
+            <div className='flex items-center justify-between'>
+              <h4 className='text-lg font-semibold'>{name}</h4>
             </div>
-
-            <h3>{shopName}</h3>
+            <div className='flex items-center justify-between'>
+              <p>{email}</p>
+            </div>
+            <div className='flex items-center justify-between'>
+              <p className='mr-2'>{shopName}</p>
+              <button onClick={() => setModal(true)}>
+                <FaEdit />
+              </button>
+            </div>
           </div>
-          {modal && (
-            <Modal
-              closeModal={closeModal}
-              name={name}
-              shopName={shopName}
-              merchantType={merchantType}
-              setName={setName}
-              setShopName={setShopName}
-              setMerchantType={setMerchantType}
-              userId={user?.id}
-            />
-          )}
-        </SettingLayout>
-      </div>
+        </div>
+        {modal && (
+          <Modal
+            closeModal={closeModal}
+            name={name}
+            shopName={shopName}
+            merchantType={merchantType}
+            accessToken={accessToken}
+            userId={user?.id}
+          />
+        )}
+      </SettingLayout>
     </MerchantLayout>
   );
 };

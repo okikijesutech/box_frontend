@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import MerchantLayout from "../../layouts/MerchantLayout";
 import ProductLayout from "../../layouts/ProductLayout";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaTrash, FaEye, FaSyncAlt, FaTimes } from "react-icons/fa"; // Changed import for FaXmark to FaTimes
 import { useAuth } from "../../contexts/AuthContext";
-import { FaXmark } from "react-icons/fa6";
 import { ToastContainer, toast } from "react-toastify";
 
 interface ProductType {
@@ -41,10 +40,11 @@ const Product = () => {
     fetchProduct();
   }, [accessToken]);
 
-  const handleDelete = (id: any) => {
+  const handleDelete = async (id: number) => {
+    // Added async keyword to handleDelete function
     try {
-      axios.delete(`http://localhost:3000/product/${id}`);
-      setProducts(products.filter((product) => product.id !== id)); // Remove the deleted product from state
+      await axios.delete(`http://localhost:3000/product/${id}`); // Added await to axios.delete
+      setProducts(products.filter((product) => product.id !== id));
       toast.success("Product deleted successfully");
     } catch (error) {
       console.log(error);
@@ -61,18 +61,16 @@ const Product = () => {
     setModal(false);
   };
 
-  const filteredProducts = products
-    ? products.filter((product) =>
-        product.name.toLowerCase().includes(search.toLowerCase())
-      )
-    : [];
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <MerchantLayout>
       <ToastContainer />
       <div>
         <ProductLayout>
-          <div className='border-black border-[2px] w-[250px] rounded-md px-3 py-2'>
+          <div className='flex items-center border border-black rounded-md px-3 py-2'>
             <input
               type='text'
               className='mr-3 focus:outline-none'
@@ -82,18 +80,18 @@ const Product = () => {
               <FaSearch />
             </button>
           </div>
-          <div className='overflow-x-auto overflow-y-auto mt-5'>
+          <div className='overflow-x-auto mt-5'>
             <table className='min-w-full bg-white border border-gray-300'>
               <thead className='bg-gray-100'>
                 <tr>
                   <th className='py-2 px-4 border-b'>Item</th>
                   <th className='py-2 px-4 border-b'>Quantity</th>
-                  <th className='py-2 px-4 border-b'>Action</th>
+                  <th className='py-2 px-4 border-b'>Actions</th>{" "}
+                  {/* Changed Action to Actions */}
                 </tr>
               </thead>
               <tbody>
-                {Array.isArray(filteredProducts) &&
-                filteredProducts.length > 0 ? (
+                {filteredProducts.length > 0 ? (
                   filteredProducts.map((product, index) => (
                     <tr
                       key={product.id}
@@ -102,20 +100,29 @@ const Product = () => {
                       <td className='py-2 px-4 border-b'>{product.name}</td>
                       <td className='py-2 px-4 border-b'>{product.quantity}</td>
                       <td className='py-2 px-4 border-b'>
-                        <button onClick={() => handleDelete(product.id)}>
-                          delete
+                        <button
+                          className='mr-2'
+                          onClick={() => handleDelete(product.id)}
+                        >
+                          <FaTrash /> Delete
                         </button>
-                      </td>
-                      <td className='py-2 px-4 border-b'>
-                        <button onClick={() => openModal(product)}>
-                          view product
+                        <button
+                          className='mr-2'
+                          onClick={() => openModal(product)}
+                        >
+                          <FaEye /> View
+                        </button>
+                        <button>
+                          <FaSyncAlt /> Restock
                         </button>
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td>No Product</td>
+                    <td colSpan={3} className='py-2 px-4 border-b'>
+                      No Products
+                    </td>
                   </tr>
                 )}
               </tbody>
@@ -138,13 +145,14 @@ const Modal = ({
   if (!product) return null;
 
   return (
-    <div className='bg-green-500 w-[300px] h-[300px] absolute top-[100px] left-[600px]'>
-      <button onClick={closeModal}>
-        <FaXmark />
-      </button>
-      <h3>{product.name}</h3>
-      <p>quantity: {product.quantity}</p>
-      <h1>product</h1>
+    <div className='fixed inset-0 flex justify-center items-center bg-black bg-opacity-50'>
+      <div className='bg-white p-6 rounded-md'>
+        <button className='absolute top-0 right-0 p-2' onClick={closeModal}>
+          <FaTimes />
+        </button>
+        <h3 className='text-lg font-semibold'>{product.name}</h3>
+        <p>Quantity: {product.quantity}</p>
+      </div>
     </div>
   );
 };

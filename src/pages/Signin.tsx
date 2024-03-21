@@ -1,10 +1,11 @@
-import axios from "axios";
 import { useState, FormEvent } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import LoadingSpinner from "../components/LoadingSpinner";
+import axios from "axios";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -16,9 +17,6 @@ const Signin = () => {
   const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
   const { setAuthTokens, setUser } = useAuth();
-
-  // const backendUrl =
-  //   process.env.REACT_APP_BACKEND_URL || "http://localhost:3000/merchant"; // Accessing the environment variable
 
   const validateForm = () => {
     let isValid = true;
@@ -51,7 +49,6 @@ const Signin = () => {
     try {
       const response = await axios.post(
         "http://localhost:3000/merchant/login",
-        // backendUrl + "/login",
         {
           email,
           password,
@@ -72,33 +69,42 @@ const Signin = () => {
   };
 
   return (
-    <div className='flex flex-col items-center justify-center py-[12%] overflow-y-hidden bg-green-300'>
+    <div className='flex flex-col items-center justify-center h-screen bg-green-300'>
       <ToastContainer />
-      <h1 className='text-2xl'>
+      <h1 className='text-3xl font-bold mb-6'>
         <a href='/'>IN_BOX</a>
       </h1>
-      <h2 className='text-md my-3'>Sign In</h2>
-      <div className='border-[1px] border-gray-800 rounded-[15px] px-4 py-3 shadow-md'>
-        <form className='flex flex-col' onSubmit={handleSubmit}>
-          <label htmlFor='email'>Email Address</label>
-          <input
-            type='text'
-            placeholder='Benny'
-            id='email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={`mt-2 mb-4 border-b-2 border-green-900 bg-inherit focus:outline-none ${
-              emailError ? "border-red-500" : ""
-            }`}
-          />
-          <label htmlFor='password'>Password</label>
-          <div className='w-full flex'>
+      <h2 className='text-xl mb-4'>Sign In</h2>
+      <div className='w-full max-w-md bg-white rounded-lg shadow-lg p-6'>
+        <form className='space-y-4' onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor='email' className='block font-medium text-gray-700'>
+              Email Address
+            </label>
+            <input
+              type='text'
+              id='email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={`mt-1 p-2 block w-full rounded-md border-gray-300 ${
+                emailError ? "border-red-500" : ""
+              }`}
+            />
+            {emailError && <p className='text-red-500 text-sm'>{emailError}</p>}
+          </div>
+          <div className='relative'>
+            <label
+              htmlFor='password'
+              className='block font-medium text-gray-700'
+            >
+              Password
+            </label>
             <input
               type={passwordVisible ? "text" : "password"}
+              id='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              id='password'
-              className={`mt-2 mb-4 border-b-2 border-green-900 bg-inherit focus:border-b-2 focus:outline-none flex-grow ${
+              className={`mt-1 p-2 block w-full rounded-md border-gray-300 ${
                 passwordError ? "border-red-500" : ""
               }`}
             />
@@ -107,28 +113,34 @@ const Signin = () => {
               onClick={() => {
                 setPasswordVisible(!passwordVisible);
               }}
+              className='absolute inset-y-0 right-0 flex items-center px-3 text-gray-600'
             >
-              {passwordVisible ? <FaEyeSlash size={24} /> : <FaEye size={24} />}
+              {passwordVisible ? <FaEyeSlash /> : <FaEye />}
             </button>
+            {passwordError && (
+              <p className='text-red-500 text-sm'>{passwordError}</p>
+            )}
           </div>
-          {error && <p className='text-red-600 text-sm mb-2'>{error}</p>}
+          {error && <p className='text-red-500 text-sm'>{error}</p>}
           <button
             type='submit'
-            className='rounded-[10px] bg-green-900 w-3/4 mx-auto px-3 py-2 mb-[10px]'
+            className='w-full bg-green-700 text-white rounded-md py-2'
             disabled={isLoading}
           >
             {isLoading ? <LoadingSpinner /> : "Sign In"}
           </button>
         </form>
-        <a href='/forgotten_password' className='text-green-900 text-sm'>
-          Forgotten password
-        </a>
-        <p className='text-sm'>
-          Don't have a merchant account?{" "}
-          <a href='/signup' className='text-green-900'>
-            Sign up here
+        <div className='mt-4'>
+          <a href='/forgotten_password' className='text-green-700 text-sm'>
+            Forgotten password
           </a>
-        </p>
+          <p className='text-sm mt-1'>
+            Don't have a merchant account?{" "}
+            <a href='/signup' className='text-green-700'>
+              Sign up here
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   );
