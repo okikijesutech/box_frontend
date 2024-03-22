@@ -6,23 +6,37 @@ import Chart from "chart.js/auto";
 
 const Merchant = () => {
   const [users, setUsers] = useState([]);
+  const [productsSoldOverTime, setProductsSoldOverTime] = useState([]);
   const { accessToken } = useAuth();
 
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:3000/user", {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //       });
+  //       setUsers(response.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchUsers();
+  // }, [accessToken]);
+
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchProductsSoldOverTime = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/user", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        setUsers(response.data);
+        const response = await axios.get("/api/products-sold-over-time");
+        setProductsSoldOverTime(response.data);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchUsers();
-  }, [accessToken]);
+
+    fetchProductsSoldOverTime();
+  }, []);
 
   useEffect(() => {
     renderChart();
@@ -30,15 +44,18 @@ const Merchant = () => {
 
   const renderChart = () => {
     const ctx = document.getElementById("myChart") as HTMLCanvasElement;
+    // const ctx = document.getElementById("productsSoldChart");
     if (ctx) {
       new Chart(ctx, {
         type: "bar",
         data: {
           labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          // labels: productsSoldOverTime.map((item) => item.date.month),
           datasets: [
             {
               label: "# of Votes",
               data: [12, 19, 3, 5, 2, 3],
+              // data: productsSoldOverTime.map((item) => item.count._count),
               backgroundColor: [
                 "rgba(255, 99, 132, 0.2)",
                 "rgba(54, 162, 235, 0.2)",

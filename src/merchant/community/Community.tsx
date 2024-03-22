@@ -19,11 +19,11 @@ const Modal = ({ onClose }: { onClose: () => void }) => {
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const response = await axios.get("/members", {
+        const response = await axios.get("http://localhost:3000/user", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }); // Replace with your API endpoint for fetching members
+        });
         setMembers(response.data);
       } catch (error) {
         console.log(error);
@@ -41,7 +41,10 @@ const Modal = ({ onClose }: { onClose: () => void }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post("/chat/create", { name, membersIds });
+      await axios.post("http://localhost:3000/chat/create", {
+        name,
+        membersIds,
+      });
       onClose();
     } catch (error) {
       console.log(error);
@@ -50,13 +53,27 @@ const Modal = ({ onClose }: { onClose: () => void }) => {
 
   return (
     <div className='bg-white p-4 rounded shadow-md'>
-      <h2 className='text-lg font-bold mb-4'>Create a Community room</h2>
-      <button
-        onClick={() => onClose()}
-        className='bg-blue-500 text-white px-3 py-2 rounded-md'
-      >
-        <FaClosedCaptioning size={24} />
-      </button>
+      <div className='flex items-center justify-between'>
+        <h2 className='text-lg font-bold mb-4'>Create a Community room</h2>
+        <button
+          onClick={() => onClose()}
+          className='bg-blue-500 text-white px-3 py-2 rounded-md'
+        >
+          <svg
+            className='h-6 w-6'
+            fill='none'
+            viewBox='0 0 24 24'
+            stroke='currentColor'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth='2'
+              d='M6 18L18 6M6 6l12 12'
+            />
+          </svg>
+        </button>
+      </div>
       <form onSubmit={handleSubmit} className='mt-4'>
         <label className='block mb-2' htmlFor='name'>
           Name
@@ -102,7 +119,7 @@ const Community = () => {
   useEffect(() => {
     const fetchGroupChats = async () => {
       try {
-        const response = await axios.get("/chat");
+        const response = await axios.get("http://localhost:3000/chat");
         setGroupChats(response.data);
       } catch (error) {
         console.log(error);
@@ -143,6 +160,7 @@ const Community = () => {
                     >
                       {groupChat.name}
                     </button>
+                    <button>users control</button>
                   </li>
                 ))}
               </ul>

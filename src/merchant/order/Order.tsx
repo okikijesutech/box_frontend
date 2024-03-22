@@ -41,8 +41,6 @@ const Order = () => {
         <p>Here is your order</p>
         {loading ? (
           <p>Loading...</p>
-        ) : orders.length === 0 ? (
-          <p>No orders yet</p>
         ) : (
           <div className='overflow-x-auto'>
             <table className='min-w-full border-collapse'>
@@ -58,25 +56,29 @@ const Order = () => {
                 </tr>
               </thead>
               <tbody>
-                {orders.map((order) => (
-                  <tr key={order.id} className='border border-gray-400'>
-                    <td className='border border-gray-400 px-4 py-2'>
-                      {order.name}
-                    </td>
-                    <td className='border border-gray-400 px-4 py-2'>
-                      {order.user}
-                    </td>
-                    <td className='border border-gray-400 px-4 py-2'>
-                      {order.quantity}
-                    </td>
-                    <td className='border border-gray-400 px-4 py-2'>
-                      {order.postalAddress}
-                    </td>
-                    <td className='border border-gray-400 px-4 py-2'>
-                      Order Sent Out
-                    </td>
-                  </tr>
-                ))}
+                {orders.length > 0 ? (
+                  orders.map((order) => (
+                    <tr key={order.id} className='border border-gray-400'>
+                      <td className='border border-gray-400 px-4 py-2'>
+                        {order.name}
+                      </td>
+                      <td className='border border-gray-400 px-4 py-2'>
+                        {order.user}
+                      </td>
+                      <td className='border border-gray-400 px-4 py-2'>
+                        {order.quantity}
+                      </td>
+                      <td className='border border-gray-400 px-4 py-2'>
+                        {order.postalAddress}
+                      </td>
+                      <td className='border border-gray-400 px-4 py-2'>
+                        Order Sent Out
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <p>Sorry you have no orders yet</p>
+                )}
               </tbody>
             </table>
           </div>
