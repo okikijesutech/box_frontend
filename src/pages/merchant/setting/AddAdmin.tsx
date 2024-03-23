@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import MerchantLayout from "../../layouts/MerchantLayout";
-import SettingLayout from "../../layouts/SettingLayout";
+import MerchantLayout from "../../../layouts/MerchantLayout";
+import SettingLayout from "../../../layouts/SettingLayout";
 import axios from "axios";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/AuthContext";
 import "./scroll.css";
 
 interface User {

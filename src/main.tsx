@@ -9,8 +9,8 @@ import {
   Signup,
   Signin,
   ForgotPassword,
-} from "./pages";
-import { Admin, Users, Merchants, Setting } from "./admin";
+} from "./pages/merchant";
+import { Admin, Users, Merchants, Setting } from "./pages/admin";
 import {
   AddAdmin,
   AddProduct,
@@ -21,7 +21,7 @@ import {
   Settings,
   Order,
   Community,
-} from "./merchant";
+} from "./pages/merchant/product";
 import "./index.css";
 import { AuthProvider } from "./contexts/AuthContext";
 

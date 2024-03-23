@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import MerchantLayout from "../../layouts/MerchantLayout";
-import SettingLayout from "../../layouts/SettingLayout";
+import MerchantLayout from "../../../layouts/MerchantLayout";
+import SettingLayout from "../../../layouts/SettingLayout";
 import axios from "axios";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/AuthContext";
 import { FaEdit } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import { FaXmark } from "react-icons/fa6";
@@ -131,6 +131,9 @@ const Settings = () => {
           <div>
             <div className='flex items-center justify-between'>
               <h4 className='text-lg font-semibold'>{name}</h4>
+              <div className='w-[200px] '>
+                <img src={""} alt='' />
+              </div>
             </div>
             <div className='flex items-center justify-between'>
               <p>{email}</p>

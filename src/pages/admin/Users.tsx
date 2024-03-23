@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../../layouts/AdminLayout";
 import axios from "axios";
 import { FaSearch } from "react-icons/fa";
 
@@ -10,25 +10,26 @@ interface User {
   wallet: string;
 }
 
-const Merchants = () => {
+const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [isActive, setIsActive] = useState(false);
   const [search, setSearch] = useState("");
+  const [isActive, setIsActive] = useState(false);
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/merchant", {});
+        const response = await axios.get("http://localhost:3000/user", {});
         setUsers(response.data);
-        // setIsActive;
       } catch (error) {
         console.log(error);
       }
     };
     fetchUsers();
   }, []);
-  const handleDelete = async (id: number) => {
+
+  const handleDelete = (id: number) => {
     try {
-      axios.delete(`http://localhost:3000/merchant/${id}`);
+      axios.delete(`http://localhost:3000/users/${id}`);
       setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
     } catch (error) {
       console.log(error);
@@ -39,16 +40,16 @@ const Merchants = () => {
   );
   return (
     <AdminLayout>
-      <h1 className='text-[48px]'>Merchants</h1>
-      <div className='flex justify-center items-center border-2 rounded-md p-1 my-2'>
+      <h1 className='text-[48px]'>Users</h1>
+      <div className='flex border-2 rounded-md p-1 my-2 border-black'>
         <input
           type='text'
-          className='border-b-2 border-black focus:outline-none'
           onChange={(e) => setSearch(e.target.value)}
+          className='border-b-2 border-black focus:outline-none'
         />
-        <FaSearch size={18} />
+        <FaSearch />
       </div>
-      <div className='overflow-x-auto overflow-y-auto'>
+      <div className='overflow-x-auto overflow-y-auto flex justify-center items-center'>
         <table className='min-w-full bg-white border border-gray-300'>
           <thead className='bg-gray-100'>
             <tr>
@@ -66,9 +67,9 @@ const Merchants = () => {
                   key={user.id}
                   className={index % 2 === 0 ? "bg-gray-50" : ""}
                 >
-                  <td className='py-2 px-4 '>{user.email}</td>
-                  <td className='py-2 px-4 '>{user.wallet}</td>
-                  <td className='py-2 px-4 '>
+                  <td className='py-2 px-4 border-b'>{user.email}</td>
+                  <td className='py-2 px-4 border-b'>{user.wallet}</td>
+                  <td className='py-2 px-4 border-b'>
                     <button
                       className={`p-2 rounded text-white ${
                         isActive ? "bg-red-500" : "bg-green-500"
@@ -77,9 +78,9 @@ const Merchants = () => {
                       {isActive ? "Deactivate" : "Activate"}
                     </button>
                   </td>
-                  <td className='py-2 px-4 '>
+                  <td className='py-2 px-4 border-b'>
                     <button
-                      className='bg-red-800 p-2 rounded'
+                      className='bg-red-900 rounded p-2'
                       onClick={() => handleDelete(user.id)}
                     >
                       Delete
@@ -101,4 +102,4 @@ const Merchants = () => {
   );
 };
 
-export default Merchants;
+export default Users;

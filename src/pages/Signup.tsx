@@ -90,9 +90,9 @@ const Signup = () => {
               onClick={() => {
                 setPasswordVisible(!passwordVisible);
               }}
-              className='absolute inset-y-0 right-0 flex items-center px-3 text-gray-600'
+              className='absolute inset-y-0 right-0 top-7 flex items-center px-3 text-gray-600'
             >
-              {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+              {passwordVisible ? <FaEyeSlash size={24} /> : <FaEye size={24} />}
             </button>
           </div>
           <button

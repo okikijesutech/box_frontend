@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import MerchantLayout from "../../layouts/MerchantLayout";
+import MerchantLayout from "../../../layouts/MerchantLayout";
 import axios from "axios";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/AuthContext";
 
 interface Order {
   id: string;

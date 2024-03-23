@@ -113,9 +113,9 @@ const Signin = () => {
               onClick={() => {
                 setPasswordVisible(!passwordVisible);
               }}
-              className='absolute inset-y-0 right-0 flex items-center px-3 text-gray-600'
+              className='absolute inset-y-0 right-0 flex items-center px-3 text-gray-600 top-7'
             >
-              {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+              {passwordVisible ? <FaEyeSlash size={24} /> : <FaEye size={24} />}
             </button>
             {passwordError && (
               <p className='text-red-500 text-sm'>{passwordError}</p>

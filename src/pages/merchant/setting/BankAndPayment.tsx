@@ -1,9 +1,9 @@
 import { useState } from "react";
-import MerchantLayout from "../../layouts/MerchantLayout";
-import SettingLayout from "../../layouts/SettingLayout";
+import MerchantLayout from "../../../layouts/MerchantLayout";
+import SettingLayout from "../../../layouts/SettingLayout";
 import axios from "axios";
 import { FaEdit } from "react-icons/fa";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 
 const BankAndPayment = () => {

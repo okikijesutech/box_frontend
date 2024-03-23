@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-import MerchantLayout from "../../layouts/MerchantLayout";
+import MerchantLayout from "../../../layouts/MerchantLayout";
 import Chatbox from "./Chat";
 
 interface Message {

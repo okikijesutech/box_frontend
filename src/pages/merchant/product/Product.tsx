@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import MerchantLayout from "../../layouts/MerchantLayout";
-import ProductLayout from "../../layouts/ProductLayout";
-import { FaSearch, FaTrash, FaEye, FaSyncAlt, FaTimes } from "react-icons/fa"; // Changed import for FaXmark to FaTimes
-import { useAuth } from "../../contexts/AuthContext";
+import MerchantLayout from "../../../layouts/MerchantLayout";
+import ProductLayout from "../../../layouts/ProductLayout";
+import { FaSearch, FaTrash, FaEye, FaSyncAlt } from "react-icons/fa";
+import { FaXmark } from "react-icons/fa6";
+import { useAuth } from "../../../contexts/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 
 interface ProductType {
@@ -87,7 +88,6 @@ const Product = () => {
                   <th className='py-2 px-4 border-b'>Item</th>
                   <th className='py-2 px-4 border-b'>Quantity</th>
                   <th className='py-2 px-4 border-b'>Actions</th>{" "}
-                  {/* Changed Action to Actions */}
                 </tr>
               </thead>
               <tbody>
@@ -146,9 +146,9 @@ const Modal = ({
 
   return (
     <div className='fixed inset-0 flex justify-center items-center bg-black bg-opacity-50'>
-      <div className='bg-white p-6 rounded-md'>
-        <button className='absolute top-0 right-0 p-2' onClick={closeModal}>
-          <FaTimes />
+      <div className='relative bg-white p-6 rounded-md'>
+        <button onClick={closeModal} className='absolute top-0 right-0 p-2'>
+          <FaXmark size={24} />
         </button>
         <h3 className='text-lg font-semibold'>{product.name}</h3>
         <p>Quantity: {product.quantity}</p>

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import MerchantLayout from "../../layouts/MerchantLayout";
+import MerchantLayout from "../../../layouts/MerchantLayout";
 import axios from "axios";
-import { FaClosedCaptioning } from "react-icons/fa";
 import ChatSpace from "./ChatSpace";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/AuthContext";
 
 interface GroupChat {
   id: string;

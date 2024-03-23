@@ -1,9 +1,9 @@
 import { useState } from "react";
-import ProductLayout from "../../layouts/ProductLayout";
-import MerchantLayout from "../../layouts/MerchantLayout";
+import ProductLayout from "../../../layouts/ProductLayout";
+import MerchantLayout from "../../../layouts/MerchantLayout";
 import axios from "axios";
-import { useAuth } from "../../contexts/AuthContext";
-import LoadingSpinner from "../../components/LoadingSpinner";
+import { useAuth } from "../../../contexts/AuthContext";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {

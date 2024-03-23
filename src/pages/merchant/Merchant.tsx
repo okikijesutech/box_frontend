@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import MerchantLayout from "../layouts/MerchantLayout";
+import MerchantLayout from "../../layouts/MerchantLayout";
 import axios from "axios";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import Chart from "chart.js/auto";
 
 const Merchant = () => {
@@ -9,21 +9,21 @@ const Merchant = () => {
   const [productsSoldOverTime, setProductsSoldOverTime] = useState([]);
   const { accessToken } = useAuth();
 
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     try {
-  //       const response = await axios.get("http://localhost:3000/user", {
-  //         headers: {
-  //           Authorization: `Bearer ${accessToken}`,
-  //         },
-  //       });
-  //       setUsers(response.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchUsers();
-  // }, [accessToken]);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/user", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        setUsers(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchUsers();
+  }, [accessToken]);
 
   useEffect(() => {
     const fetchProductsSoldOverTime = async () => {
@@ -90,25 +90,25 @@ const Merchant = () => {
   return (
     <MerchantLayout>
       <h1 className='text-4xl mb-5'>Overview</h1>
-      <div className='grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4'>
-        <div className='bg-slate-400 rounded-md px-5 py-2 col-span-2'>
+      <div className='grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4 max-h-screen'>
+        <div className='bg-slate-400 rounded-md px-5 py-2 col-span-1 row-span-2'>
           <h4 className='font-semibold text-2xl'>Highest paying customer</h4>
           <p className='font-semibold text-xl'>{users.length || 0}</p>
         </div>
-        <div className='bg-slate-400 rounded-md px-5 py-2'>
+        <div className='bg-slate-400 rounded-md px-5 py-2 col-span-1 row-span-1'>
           <h4 className='font-semibold text-2xl'>Total Transaction</h4>
           <p className='font-semibold text-xl'>100M</p>
           <canvas id='myChart' width='400' height='400'></canvas>
         </div>
-        <div className='bg-slate-400 rounded-md px-5 py-2'>
+        <div className='bg-slate-400 rounded-md px-5 py-2 col-span-2 row-span-1'>
           <h4 className='font-semibold text-2xl'>Revenue</h4>
           <p className='font-semibold text-xl'>560M</p>
         </div>
-        <div className='bg-slate-400 rounded-md px-5 py-2 row-span-2'>
+        <div className='bg-slate-400 rounded-md px-5 py-2 col-span-3 row-span-2'>
           <h4 className='font-semibold text-2xl'>Total Order</h4>
           <p className='font-semibold text-xl'>560M</p>
         </div>
-        <div className='bg-slate-400 rounded-md px-5 py-2'>
+        <div className='bg-slate-400 rounded-md px-5 py-2 col-span-1 row-span-1'>
           <h4 className='font-semibold text-2xl'>Best selling product</h4>
           <p className='font-semibold text-xl'>560M</p>
         </div>
