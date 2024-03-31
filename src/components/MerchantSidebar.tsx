@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa";
 import { useLocation, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import "../merchant/setting/scroll.css";
+import "../pages/merchant/setting/scroll.css";
 
 interface SidebarItemProps {
   icon: ReactNode; // Explicitly define the type of the icon prop

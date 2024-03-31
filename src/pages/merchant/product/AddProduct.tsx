@@ -5,11 +5,12 @@ import axios from "axios";
 import { useAuth } from "../../../contexts/AuthContext";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddProduct = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState(""); // Changed 'setQunatity' to 'setQuantity'
+  const [quantity, setQuantity] = useState("");
   const [desc, setDesc] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState<File | string>("");
@@ -26,6 +27,11 @@ const AddProduct = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    if (!name || !quantity || !desc || !price || !image || !user?.id) {
+      toast.error("Please fill in all fields");
+      setIsLoading(false);
+      return;
+    }
     try {
       const formData = new FormData();
 
@@ -43,12 +49,14 @@ const AddProduct = () => {
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "multipart/from-data", // Corrected "multipart/from-data" to "multipart/form-data"
+            "Content-Type": "multipart/form-data",
           },
         }
       );
-      if (response.status === 200) navigate("/merchant/product");
+      toast.success("Product was added successfull");
+      if (response.status === 200) navigate("/product");
     } catch (error) {
+      toast.error("Product wasn't added");
       console.log(error);
     } finally {
       setIsLoading(false);
@@ -57,6 +65,7 @@ const AddProduct = () => {
 
   return (
     <MerchantLayout>
+      <ToastContainer />
       <ProductLayout>
         <div className='p-4 border-2 border-green-500 bg-green-500 rounded shadow-md'>
           {" "}
