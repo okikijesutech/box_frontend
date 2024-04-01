@@ -10,7 +10,14 @@ import {
   Signin,
   ForgotPassword,
 } from "./pages/merchant";
-import { Admin, Users, Merchants, Setting } from "./pages/admin";
+import {
+  Admin,
+  Users,
+  Merchants,
+  Setting,
+  AdminSignin,
+  AdminSignup,
+} from "./pages/admin";
 import {
   AddAdmin,
   AddProduct,
@@ -62,11 +69,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin/signin",
-    element: <Signin />,
+    element: <AdminSignin />,
   },
   {
     path: "/admin/signup",
-    element: <Signup />,
+    element: <AdminSignup />,
   },
   {
     path: "/admin/setting",

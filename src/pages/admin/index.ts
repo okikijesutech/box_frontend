@@ -1,8 +1,8 @@
 import Admin from "./Admin";
 import Merchants from "./Merchants";
 import Users from "./Users";
-import Signin from "./Signin";
-import Signup from "./Signup";
+import AdminSignin from "./Signin";
+import AdminSignup from "./Signup";
 import Setting from "./Setting";
 
-export { Admin, Merchants, Users, Signin, Signup, Setting };
+export { Admin, Merchants, Users, AdminSignin, AdminSignup, Setting };

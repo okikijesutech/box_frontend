@@ -57,8 +57,8 @@ const Signin = () => {
       const { accessToken, refreshToken, user, message } = response.data;
       setAuthTokens({ accessToken, refreshToken });
       setUser(user);
-      navigate("/merchant");
       toast.success(message);
+      navigate("/merchant");
     } catch (error: any) {
       setError("Invalid email or password");
       console.error("Error signing in:", error);
