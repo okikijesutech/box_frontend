@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { FaRegComments } from "react-icons/fa";
 import UserLayout from "../../layouts/UserLayout";
 
 const StoreFront = () => {
@@ -62,7 +64,7 @@ const StoreFront = () => {
       <div className='container mx-auto px-4 py-8'>
         <div className='flex justify-between items-center mb-8'>
           <h1 className='text-3xl font-bold text-white'>StoreFront</h1>
-          <div className='flex items-center justify-center gap-3'>
+          <div className='flex items-center gap-3'>
             <button className='bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none mt-4'>
               <Link to='/user'>Back to Market Square</Link>
             </button>
@@ -70,6 +72,7 @@ const StoreFront = () => {
               className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none'
               onClick={handleChatClick}
             >
+              <FaRegComments className='mr-2' />
               Chat
             </button>
           </div>
@@ -81,13 +84,17 @@ const StoreFront = () => {
               className='bg-white rounded-lg shadow-lg p-4 flex flex-col justify-between'
             >
               <div>
-                <img src={product.image} alt={product.name} className='mb-4' />
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className='mb-4 w-full h-auto'
+                />
                 <h2 className='text-xl font-semibold mb-2'>{product.name}</h2>
                 <p className='text-gray-700 mb-2'>{product.description}</p>
                 <p className='text-gray-700'>Price: ${product.price}</p>
               </div>
               <button
-                className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none mt-4'
+                className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none mt-4 self-end'
                 onClick={() => handleProductClick(product)}
               >
                 Buy Now
@@ -110,15 +117,19 @@ const StoreFront = () => {
                 className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none'
                 onClick={handleCloseChatModal}
               >
+                <AiOutlineCloseCircle className='mr-2' />
                 Close Chat
               </button>
             </div>
             {/* Chat component goes here */}
             <div className='flex flex-col h-96 overflow-y-auto'>
-              <div className='mb-4'>
-                {/* Chat message display */}
-                <div className='bg-gray-200 p-2 rounded-md mb-2'>Message 1</div>
-                <div className='bg-gray-200 p-2 rounded-md mb-2'>Message 2</div>
+              {/* Chat message display */}
+              {/* Sample messages */}
+              <div className='chat-message bg-gray-200 p-2 rounded-md mb-2'>
+                Message 1
+              </div>
+              <div className='chat-message bg-gray-200 p-2 rounded-md mb-2'>
+                Message 2
               </div>
             </div>
             {/* Input for message */}
@@ -146,7 +157,7 @@ const StoreFront = () => {
         <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center z-50'>
           <div className='absolute top-0 left-0 w-full h-full bg-black opacity-50'></div>
           <div className='bg-white rounded-lg shadow-lg p-6 z-50'>
-            <div className='flex'>
+            <div className='flex justify-between'>
               <h2 className='text-xl font-semibold mb-4'>
                 Product Details - {selectedProduct.name}
               </h2>
@@ -154,6 +165,7 @@ const StoreFront = () => {
                 className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none mt-4'
                 onClick={() => setSelectedProduct(null)}
               >
+                <AiOutlineCloseCircle className='mr-2' />
                 Close
               </button>
             </div>

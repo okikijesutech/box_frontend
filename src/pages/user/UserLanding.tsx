@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import UserLayout from "../../layouts/UserLayout";
+import "./custom-scrollbar.css";
 import stock from "../../assets/stock.jpg";
 
 const stores = [
@@ -26,7 +27,7 @@ const UserLanding = () => {
         <h3 className='text-center mb-4 text-lg'>
           Which business would you be supporting today?
         </h3>
-        <ul className='flex gap-3 p-4 overflow-x-auto'>
+        <ul className='flex gap-3 p-4 overflow-x-auto custom-scrollbar'>
           {stores.map((store) => (
             <li
               key={store.id}
@@ -39,7 +40,6 @@ const UserLanding = () => {
                     alt={`Logo for ${store.name}`}
                     className='w-full h-full object-cover rounded-full'
                   />
-                  {/* Image can be added here */}
                 </div>
                 <h3 className='text-center'>{store.name}</h3>
               </Link>

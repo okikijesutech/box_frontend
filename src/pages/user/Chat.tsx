@@ -16,7 +16,7 @@ const Chat = () => {
   const [newMessage, setNewMessage] = useState("");
   const [groupName, setGroupName] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [groups, setGroups] = useState([]); // State for storing created groups
+  const [groups, setGroups] = useState([]);
 
   const sendMessage = () => {
     if (newMessage.trim() !== "") {
@@ -40,9 +40,9 @@ const Chat = () => {
   const createGroupChat = () => {
     const newGroup = groupName.trim();
     if (newGroup !== "") {
-      setGroups([...groups, newGroup]); // Add the new group to the list
-      setGroupName(""); // Clear the input field
-      setSelectedUser(newGroup); // Set the default chat to the newly created group
+      setGroups([...groups, newGroup]);
+      setGroupName("");
+      setSelectedUser(newGroup);
       setShowModal(false);
     }
   };
@@ -64,10 +64,7 @@ const Chat = () => {
             Chat with {chatWithName}
           </h2>
         </div>
-        <div
-          className='bg-white rounded-lg shadow-lg p-4 mb-4 overflow-y-auto'
-          style={{ maxHeight: "400px" }}
-        >
+        <div className='bg-white rounded-lg shadow-lg p-4 mb-4 overflow-y-auto max-h-72'>
           {(messages[chatId] || []).map((message) => (
             <div
               key={message.id}
@@ -102,7 +99,7 @@ const Chat = () => {
         <div className='flex justify-between'>
           <div>
             <h2 className='text-lg font-semibold mb-2'>Group Chats</h2>
-            <div className='mt-4 overflow-auto' style={{ maxHeight: "200px" }}>
+            <div className='mt-4 max-h-36 overflow-auto'>
               <ul>
                 {groups.map((group, index) => (
                   <li
@@ -142,7 +139,7 @@ const Chat = () => {
             </button>
           </div>
           <button
-            // onClick={addGroupToList.bind(null, groupName)}
+            onClick={createGroupChat}
             className='bg-blue-500 text-white px-4 py-2 rounded-md'
           >
             Add Group
