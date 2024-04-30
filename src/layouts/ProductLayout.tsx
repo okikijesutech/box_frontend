@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 interface ProductLayout {
   children: ReactNode;
@@ -21,7 +21,7 @@ const ProductLayout: React.FC<ProductLayout> = ({ children }) => {
                 : ""
             }`}
           >
-            <a href='/product'>Products</a>
+            <Link to='/product'>Products</Link>
           </li>
           <li
             className={`mr-5 ${
@@ -30,7 +30,7 @@ const ProductLayout: React.FC<ProductLayout> = ({ children }) => {
                 : ""
             }`}
           >
-            <a href='/product/add_product'>Add Product</a>
+            <Link to='/product/add_product'>Add Product</Link>
           </li>
         </ul>
       </div>

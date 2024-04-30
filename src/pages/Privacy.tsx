@@ -1,11 +1,13 @@
-import Navbar from "../components/Navbar";
+import MainLayout from "../layouts/MainLayout";
 
 const Privacy = () => {
   return (
-    <div>
-      <Navbar />
-      <h1>Privacy</h1>
-    </div>
+    <>
+      <MainLayout />
+      <div className='px-[10%]'>
+        <p>privacy</p>
+      </div>
+    </>
   );
 };
 

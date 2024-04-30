@@ -29,8 +29,16 @@ import {
   Order,
   Community,
 } from "./pages/merchant/product";
+import {
+  UserChat,
+  UserLanding,
+  UserSetting,
+  UserSignin,
+  UserSignup,
+} from "./pages/user";
 import "./index.css";
 import { AuthProvider } from "./contexts/AuthContext";
+import StoreFront from "./pages/user/StoreFront";
 
 const router = createBrowserRouter([
   {
@@ -81,7 +89,7 @@ const router = createBrowserRouter([
   },
   // Merchant routes
   {
-    path: "/merchant",
+    path: "/merchant_dashboard",
     element: <Merchant />,
   },
   {
@@ -123,6 +131,31 @@ const router = createBrowserRouter([
   {
     path: "/community",
     element: <Community />,
+  },
+  // Users Routes
+  {
+    path: "/user_signin",
+    element: <UserSignin />,
+  },
+  {
+    path: "/user_signup",
+    element: <UserSignup />,
+  },
+  {
+    path: "/user",
+    element: <UserLanding />,
+  },
+  {
+    path: "/merchant/:id",
+    element: <StoreFront />,
+  },
+  {
+    path: "/user_chat",
+    element: <UserChat />,
+  },
+  {
+    path: "/user_setting",
+    element: <UserSetting />,
   },
 ]);
 

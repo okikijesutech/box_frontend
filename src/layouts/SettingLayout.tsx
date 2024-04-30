@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 interface SettingLayout {
   children: ReactNode;
@@ -16,7 +17,7 @@ const SettingLayout: React.FC<SettingLayout> = ({ children }) => {
                 : ""
             }`}
           >
-            <a href='/settings'>Basic Info</a>
+            <Link to='/settings'>Basic Info</Link>
           </li>
           <li
             className={`mr-5 ${
@@ -25,7 +26,7 @@ const SettingLayout: React.FC<SettingLayout> = ({ children }) => {
                 : ""
             }`}
           >
-            <a href='/settings/add_admin'>Add Admin</a>
+            <Link to='/settings/add_admin'>Add Admin</Link>
           </li>
           <li
             className={`mr-5 ${
@@ -34,7 +35,7 @@ const SettingLayout: React.FC<SettingLayout> = ({ children }) => {
                 : ""
             }`}
           >
-            <a href='/settings/bankandpayment'>Bank and Payment </a>
+            <Link to='/settings/bankandpayment'>Bank and Payment </Link>
           </li>
         </ul>
       </div>

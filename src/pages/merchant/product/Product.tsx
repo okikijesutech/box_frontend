@@ -97,9 +97,13 @@ const Product = () => {
                       key={product.id}
                       className={index % 2 === 0 ? "bg-gray-50" : ""}
                     >
-                      <td className='py-2 px-4 border-b'>{product.name}</td>
-                      <td className='py-2 px-4 border-b'>{product.quantity}</td>
-                      <td className='py-2 px-4 border-b'>
+                      <td className='py-2 px-4 border-b text-center'>
+                        {product.name}
+                      </td>
+                      <td className='py-2 px-4 border-b text-center'>
+                        {product.quantity}
+                      </td>
+                      <td className='py-2 px-4 border-b text-center'>
                         <button
                           className='mr-2'
                           onClick={() => handleDelete(product.id)}

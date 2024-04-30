@@ -27,7 +27,7 @@ const MerchantLayout: React.FC<MerchantLayoutProps> = ({ children }) => {
   };
 
   return isUserDataLoaded ? (
-    <div className='flex flex-col md:flex-row'>
+    <div className='flex flex-col md:flex-row h-screen'>
       <MerchantSidebar />
       <div className='flex flex-col flex-1 min-w-0'>
         <div className='bg-slate-500 p-4 md:pl-0 md:pr-6 flex items-center justify-between'>
