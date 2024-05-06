@@ -1,7 +1,7 @@
 import { FaApple, FaGooglePlay } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 
-function App() {
+function HomePage() {
   return (
     <div className='px-[10%]'>
       <Navbar />
@@ -15,15 +15,21 @@ function App() {
           <button className='flex flex-col items-center justify-center bg-white border-[1px] px-6 py-3 border-black rounded-[15px] hover:bg-gray-200 transition duration-300 ease-in-out'>
             <FaApple size={32} className='mb-2 text-gray-600' />
             <div>
-              <p className='text-[14px] font-semibold mb-1'>Available on</p>
-              <p className='text-[18px] font-semibold'>App Store</p>
+              <p className='text-[14px] text-black font-semibold mb-1'>
+                Available on
+              </p>
+              <p className='text-[18px] text-black font-semibold'>App Store</p>
             </div>
           </button>
           <button className='flex flex-col items-center justify-center bg-white border-[1px] px-6 py-3 border-black rounded-[15px] hover:bg-gray-200 transition duration-300 ease-in-out'>
             <FaGooglePlay size={32} className='mb-2 text-gray-600' />
             <div>
-              <p className='text-[14px] font-semibold mb-1'>Available on</p>
-              <p className='text-[18px] font-semibold'>Google Play</p>
+              <p className='text-[14px] text-black font-semibold mb-1'>
+                Available on
+              </p>
+              <p className='text-[18px] text-black font-semibold'>
+                Google Play
+              </p>
             </div>
           </button>
         </div>
@@ -37,6 +43,15 @@ function App() {
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
             {/* Featured Product Cards */}
             {/* You can add your featured product cards here */}
+            <div>
+              <h3>Community</h3>
+            </div>
+            <div>
+              <h3>Marketing tools</h3>
+            </div>
+            <div>
+              <h3>Customer service tools</h3>
+            </div>
           </div>
         </div>
       </section>
@@ -72,4 +87,4 @@ function App() {
   );
 }
 
-export default App;
+export default HomePage;

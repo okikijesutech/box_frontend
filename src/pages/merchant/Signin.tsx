@@ -1,6 +1,6 @@
 import { useState, FormEvent } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -58,7 +58,7 @@ const Signin = () => {
       setAuthTokens({ accessToken, refreshToken });
       setUser(user);
       toast.success(message);
-      navigate("/merchant");
+      navigate("/merchant_dashboard");
     } catch (error: any) {
       setError("Invalid email or password");
       console.error("Error signing in:", error);
@@ -72,7 +72,7 @@ const Signin = () => {
     <div className='flex flex-col items-center justify-center h-screen bg-green-300'>
       <ToastContainer />
       <h1 className='text-3xl font-bold mb-6'>
-        <a href='/'>IN_BOX</a>
+        <Link to='/'>IN_BOX</Link>
       </h1>
       <h2 className='text-xl mb-4'>Sign In</h2>
       <div className='w-full max-w-md bg-white rounded-lg shadow-lg p-6'>
@@ -82,7 +82,7 @@ const Signin = () => {
               Email Address
             </label>
             <input
-              type='text'
+              type='email'
               id='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}

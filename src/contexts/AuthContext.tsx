@@ -7,12 +7,10 @@ import React, {
   useEffect,
 } from "react";
 
-// Define props types for AuthProvider
 interface AuthProviderProps {
   children: ReactNode;
 }
 
-// Define types for authentication tokens
 interface AuthTokens {
   accessToken: string | null;
   refreshToken: string | null;
@@ -28,7 +26,6 @@ interface UserData {
   accNo: string;
 }
 
-// Define the context type combining AuthTokens with functions to manipulate them
 interface AuthContextType extends AuthTokens {
   user: UserData | null;
   setAuthTokens: (tokens: AuthTokens) => void;
@@ -36,12 +33,9 @@ interface AuthContextType extends AuthTokens {
   clearAuthTokens: () => void;
 }
 
-// Create the authentication context
-const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType | null>(null);
 
-// AuthProvider component
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  // State to manage access and refresh tokens
   const [accessToken, setAccessToken] = useState<string | null>(
     sessionStorage.getItem("accessToken") as string | null
   );
@@ -56,16 +50,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const validateAccessToken = async () => {
       try {
         if (!accessToken) {
-          clearAuthTokens(); // Clear tokens if accessToken is missing
+          clearAuthTokens();
           return;
         }
 
-        // Check if accessToken is still valid
         await axios.get("http://localhost:3000/merchant", {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
-
-        // If accessToken is valid, do nothing
       } catch (error: any) {
         console.error("Error validating access token:", error);
 
@@ -74,10 +65,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           error.response.status === 401 &&
           refreshTokenState
         ) {
-          // If accessToken is invalid and refreshToken is available, use refreshToken to get a new accessToken
           await refreshAccessToken();
         } else {
-          clearAuthTokens(); // Clear tokens if validation fails or refreshToken is not available
+          clearAuthTokens();
         }
       }
     };
@@ -97,14 +87,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         accessToken: response.data.accessToken,
         refreshToken: refreshTokenState,
       });
-      // setAccessToken(response.data.accessToken);
     } catch (error: unknown) {
       console.error("Error refreshing access token:", error);
-      clearAuthTokens(); // Clear tokens if refresh fails
+      clearAuthTokens();
     }
   };
 
-  // Function to set authentication tokens
   const setAuthTokens = ({ accessToken, refreshToken }: AuthTokens) => {
     sessionStorage.setItem("accessToken", accessToken || "");
     sessionStorage.setItem("refreshToken", refreshToken || "");
@@ -117,7 +105,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUserState(userData);
   };
 
-  // Function to clear authentication tokens
   const clearAuthTokens = () => {
     sessionStorage.removeItem("accessToken");
     sessionStorage.removeItem("refreshToken");
@@ -127,11 +114,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUserState(null);
   };
 
-  // const refreshToken = async () => {
-  //   await refreshAccessToken();
-  // };
-
-  // Provide authentication context to children components
   return (
     <AuthContext.Provider
       value={{
@@ -148,7 +130,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   );
 };
 
-// useAuth hook to consume authentication context
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {

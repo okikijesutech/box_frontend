@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import UserLayout from "../../layouts/UserLayout";
 import "./custom-scrollbar.css";
 import stock from "../../assets/stock.jpg";
+import PostsFeed from "../../components/PostsFeed";
 
 const stores = [
   { name: "BNXN", img: stock, id: "1" },
@@ -34,7 +35,7 @@ const UserLanding = () => {
               className='border-2 border-black p-2 rounded-md flex flex-col items-center'
             >
               <Link to={`/merchant/${store.id}`} className='cursor-pointer'>
-                <div className='w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mb-2'>
+                <div className='w-40 h-30 bg-gray-200 rounded-full flex items-center justify-center mb-2'>
                   <img
                     src={store.img}
                     alt={`Logo for ${store.name}`}
@@ -47,6 +48,7 @@ const UserLanding = () => {
           ))}
         </ul>
       </div>
+      <PostsFeed />
     </div>
   );
 };

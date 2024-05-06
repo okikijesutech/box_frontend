@@ -1,28 +1,42 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [shopName, setShopName] = useState("");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    shopName: "",
+    password: "",
+  });
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [shopName, setShopName] = useState("");
+  // const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  // the e update it check chat gpt
+  const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSignUp = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.post("http://localhost:3000/merchant", {
-        name: name,
-        email: email,
-        shopName: shopName,
-        password: password,
+      await axios.post("http://localhost:3000/merchant", {
+        form,
+        // name: name,
+        // email: email,
+        // shopName: shopName,
+        // password: password,
       });
-      console.log(res.data);
-      navigate("/merchant");
+      navigate("/profile_image");
+      // navigate("/merchant_dashboard");
     } catch (e) {
       console.log(e);
     } finally {
@@ -43,7 +57,9 @@ const Signup = () => {
             <input
               type='text'
               id='name'
-              onChange={(e) => setName(e.target.value)}
+              name='name'
+              onChange={handleFormChange}
+              // onChange={(e) => setName(e.target.value)}
               className='mt-1 p-2 block w-full rounded-md border-gray-300 focus:outline-none'
             />
           </div>
@@ -54,7 +70,9 @@ const Signup = () => {
             <input
               type='email'
               id='email'
-              onChange={(e) => setEmail(e.target.value)}
+              name='email'
+              onChange={handleFormChange}
+              // onChange={(e) => setEmail(e.target.value)}
               className='mt-1 p-2 block w-full rounded-md border-gray-300 focus:outline-none'
             />
           </div>
@@ -68,7 +86,9 @@ const Signup = () => {
             <input
               type='text'
               id='shopName'
-              onChange={(e) => setShopName(e.target.value)}
+              name='shopName'
+              onChange={handleFormChange}
+              // onChange={(e) => setShopName(e.target.value)}
               className='mt-1 p-2 block w-full rounded-md border-gray-300 focus:outline-none'
             />
           </div>
@@ -82,7 +102,9 @@ const Signup = () => {
             <input
               type={passwordVisible ? "text" : "password"}
               id='password'
-              onChange={(e) => setPassword(e.target.value)}
+              name='password'
+              onChange={handleFormChange}
+              // onChange={(e) => setPassword(e.target.value)}
               className='mt-1 p-2 block w-full rounded-md border-gray-300 focus:outline-none'
             />
             <button
