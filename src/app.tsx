@@ -40,7 +40,6 @@ import {
   UserSignup,
 } from "./pages/user";
 import StoreFront from "./pages/user/StoreFront";
-import ProfileImage from "./pages/merchant/ProfileImage";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -71,7 +70,6 @@ const App = () => {
         <Route path='/chat' element={<ChatPage />} />
         <Route path='/order' element={<Order />} />
         <Route path='/community' element={<Community />} />
-        <Route path='/profile_image' element={<ProfileImage />} />
         {/** user routes */}
         <Route path='/user_signin' element={<UserSignin />} />
         <Route path='/user_signup' element={<UserSignup />} />

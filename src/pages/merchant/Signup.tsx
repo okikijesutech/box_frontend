@@ -35,8 +35,7 @@ const Signup = () => {
         // shopName: shopName,
         // password: password,
       });
-      navigate("/profile_image");
-      // navigate("/merchant_dashboard");
+      navigate("/merchant_dashboard");
     } catch (e) {
       console.log(e);
     } finally {
